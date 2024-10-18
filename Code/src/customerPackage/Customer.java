@@ -1,5 +1,6 @@
 package customerPackage;
 
+import exceptionHandlerPackage.ExceptionHandler;
 
 public class Customer {
 	
@@ -41,7 +42,7 @@ public class Customer {
 		
 	}
 	
-	public Customer(String custName, String custAddr, String custPhone) throws CustomerExceptionHandler  {
+	public Customer(String custName, String custAddr, String custPhone) throws ExceptionHandler  {
 		
 		id = 0;
 		
@@ -53,7 +54,7 @@ public class Customer {
 			validatePhoneNumber(custPhone);
 			
 		}
-		catch (CustomerExceptionHandler e) {
+		catch (ExceptionHandler e) {
 			throw e;
 		}
 		
@@ -63,45 +64,45 @@ public class Customer {
 		phoneNumber = custPhone;
 	}
 	
-	public static void validateName(String custName) throws CustomerExceptionHandler {
+	public static void validateName(String custName) throws ExceptionHandler {
 		
 		//Agree Formating Rules on "Customer Name"
 		//E.G. Name String must be a minimum of 2 characters and a maximum of 50 characters
 		
 		if (custName.isBlank() || custName.isEmpty())
-			throw new CustomerExceptionHandler("Customer Name NOT specified");
+			throw new ExceptionHandler("Customer Name NOT specified");
 		else if (custName.length() < 2)
-			throw new CustomerExceptionHandler("Customer Name does not meet minimum length requirements");
+			throw new ExceptionHandler("Customer Name does not meet minimum length requirements");
 		else if (custName.length() > 50)
-			throw new CustomerExceptionHandler("Customer Name does not exceeds maximum length requirements");
+			throw new ExceptionHandler("Customer Name does not exceeds maximum length requirements");
 		
 	}
 	
-	public static void validateAddress(String custAddr) throws CustomerExceptionHandler {
+	public static void validateAddress(String custAddr) throws ExceptionHandler {
 		
 		//Agree Formating Rules on "Customer Address"
 		//E.G. Name String must be a minimum of 5 characters and a maximum of 60 characters
 		
 		if (custAddr.isBlank() || custAddr.isEmpty())
-			throw new CustomerExceptionHandler("Customer Address NOT specified");
+			throw new ExceptionHandler("Customer Address NOT specified");
 		else if (custAddr.length() < 5)
-			throw new CustomerExceptionHandler("Customer Address does not meet minimum length requirements");
+			throw new ExceptionHandler("Customer Address does not meet minimum length requirements");
 		else if (custAddr.length() > 60)
-			throw new CustomerExceptionHandler("Customer Address does not exceeds maximum length requirements");
+			throw new ExceptionHandler("Customer Address does not exceeds maximum length requirements");
 		
 	}
 	
-	public static void validatePhoneNumber(String custPhone) throws CustomerExceptionHandler {
+	public static void validatePhoneNumber(String custPhone) throws ExceptionHandler {
 		
 		//Agree Formating Rules on "Customer PhoneNumber"
 		//E.G. Name String must be a minimum of 7 characters and a maximum of 15 characters
 		
 		if (custPhone.isBlank() || custPhone.isEmpty())
-			throw new CustomerExceptionHandler("Customer PhoneNumber NOT specified");
+			throw new ExceptionHandler("Customer PhoneNumber NOT specified");
 		else if (custPhone.length() < 7)
-			throw new CustomerExceptionHandler("Customer PhoneNumber does not meet minimum length requirements");
+			throw new ExceptionHandler("Customer PhoneNumber does not meet minimum length requirements");
 		else if (custPhone.length() > 15)
-			throw new CustomerExceptionHandler("Customer PhoneNumber does not exceeds maximum length requirements");
+			throw new ExceptionHandler("Customer PhoneNumber does not exceeds maximum length requirements");
 		
 	}
 	
