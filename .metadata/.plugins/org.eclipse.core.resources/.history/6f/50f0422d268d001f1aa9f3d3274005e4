@@ -1,0 +1,46 @@
+package publicationPackage;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class PublicationTest {
+
+	
+	void testCustomer001() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		//Create the Customer Object
+		
+		
+		try {
+			
+			//System accepts minimum length publicationName
+			Publication p1= new Publication("2.5", "2", "ab","Daily");
+			
+			// Use getters to check for object creation
+			//assertEquals(0, p1.getId());
+			assertEquals("ab", p1.getName());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+		
+	}
+	
+	//Test #: 2
+	//Test Objective: To catch an invalid customer name
+	//Inputs: custName = "J"
+	//Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
+
+	/*
+	 * public void testValidateName001() {
+	 * 
+	 * try {
+	 * 
+	 * //Call method under test Customer.validateName("J");
+	 * fail("Exception expected"); } catch (CustomerExceptionHandler e) {
+	 * assertEquals("Customer Name does not meet minimum length requirements",
+	 * e.getMessage()); } }
+	 */
+
+}
