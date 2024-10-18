@@ -18,6 +18,7 @@ public class CommandLine {
 		System.out.println("1. Customer");
 		System.out.println("2. Delivery Area");
 		System.out.println("3. Delivery Docket");
+		System.out.println("4. Orders");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -68,6 +69,23 @@ public class CommandLine {
 		System.out.println("2. Read Delivery Areas");
 		System.out.println("3. Update Delivery Area by ID");
 		System.out.println("4. Delete Delivery Area by ID");
+		System.out.println("99. Return to Previous Page");
+		System.out.println("=============================================");
+		System.out.println(" ");
+		
+	}
+	
+	private static void listOrdersFunctionalityAvailable() {
+		
+		//Present Customer with Functionality Options
+		
+		System.out.println(" ");
+		System.out.println("=============================================");
+		System.out.println("Please choose ONE of the following options:");
+		System.out.println("1. Create Order");
+		System.out.println("2. Read Order");
+		System.out.println("3. Update Order by ID");
+		System.out.println("4. Delete Order by ID");
 		System.out.println("99. Return to Previous Page");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -192,6 +210,34 @@ public class CommandLine {
 	                                break;
 	                            case "99":
 	                                docketMenuOpen = false;  // Return to Main Menu
+	                                break;
+	                            default:
+	                                System.out.println("No valid option selected.");
+	                        }
+	                    }
+	                    break;
+	                    
+	                case "4": // Orders Functionality
+	                    boolean orderMenuOpen = true;
+	                    while (orderMenuOpen) {
+	                    	listOrdersFunctionalityAvailable(); // Show Orders Submenu
+	                        String orderChoice = keyboard.nextLine();  // Take user input
+	
+	                        switch (orderChoice) {
+	                            case "1":
+	                                System.out.println("Order Created (Placeholder).");
+	                                break;
+	                            case "2":
+	                                System.out.println("Displaying Today's Order (Placeholder).");
+	                                break;
+	                            case "3":
+	                                System.out.println("Order Updated (Placeholder).");
+	                                break;
+	                            case "4":
+	                                System.out.println("Order Deleted (Placeholder).");
+	                                break;
+	                            case "99":
+	                            	orderMenuOpen = false;  // Return to Main Menu
 	                                break;
 	                            default:
 	                                System.out.println("No valid option selected.");
