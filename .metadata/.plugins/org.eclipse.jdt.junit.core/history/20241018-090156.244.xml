@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="PublicationTest" project="NewsAgentApplication" tests="8" started="8" failures="2" errors="0" ignored="0">
+  <testsuite name="publicationPackage.PublicationTest" time="0.084" displayname="PublicationTest" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]">
+    <testcase name="testCustomer001" classname="publicationPackage.PublicationTest" time="0.042" displayname="testCustomer001()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer001()]"/>
+    <testcase name="testCustomer002" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer002()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer002()]"/>
+    <testcase name="testCustomer003" classname="publicationPackage.PublicationTest" time="0.003" displayname="testCustomer003()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer003()]"/>
+    <testcase name="testCustomer004" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer004()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer004()]"/>
+    <testcase name="testCustomer005" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer005()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer005()]"/>
+    <testcase name="testCustomer006" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer006()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer006()]"/>
+    <testcase name="testCustomer007" classname="publicationPackage.PublicationTest" time="0.018" displayname="testCustomer007()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer007()]">
+      <failure>
+        <expected>2.55</expected>
+        <actual>2.55</actual>
+        org.opentest4j.AssertionFailedError: expected: java.lang.String@14cd1699&lt;2.55&gt; but was: java.lang.Double@77888435&lt;2.55&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)&#13;
+	at publicationPackage.PublicationTest.testCustomer007(PublicationTest.java:100)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testCustomer008" classname="publicationPackage.PublicationTest" time="0.005" displayname="testCustomer008()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer008()]">
+      <failure>
+        <expected>0</expected>
+        <actual>0</actual>
+        org.opentest4j.AssertionFailedError: expected: java.lang.String@5bf0d49&lt;0&gt; but was: java.lang.Integer@5b7a5baa&lt;0&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)&#13;
+	at publicationPackage.PublicationTest.testCustomer008(PublicationTest.java:112)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+  </testsuite>
+</testrun>

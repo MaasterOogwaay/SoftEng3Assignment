@@ -1,3 +1,12 @@
-/deliveryPersonPackage/
-/warningsPackage/
+/MySQLAccessPackage/
+/customerPackage/
+/exceptionHandlerPackage/
 /commandLinePackage/
+/deliveryAreaPackage/
+/deliveryDocketPackage/
+/deliveryPersonPackage/
+/invoicePackage/
+/newsAgentPackage/
+/ordersPackage/
+/publicationPackage/
+/warningsPackage/
