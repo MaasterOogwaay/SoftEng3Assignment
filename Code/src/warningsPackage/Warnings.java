@@ -1,4 +1,5 @@
 package warningsPackage;
+import warningsPackage.Warnings;
 
 public class Warnings {
     private String warningId;
