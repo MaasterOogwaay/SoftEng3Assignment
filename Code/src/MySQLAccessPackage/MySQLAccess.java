@@ -27,7 +27,7 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//Setup the connection with the DB
-			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagent2021?" + "user=" + user + "&password=" + password);
+			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentApp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
 			throw e;
@@ -45,7 +45,7 @@ public class MySQLAccess {
 		try {
 		
 			//Create prepared statement to issue SQL query to the database
-			preparedStatement = connect.prepareStatement("insert into newsagent2021.customer values (default, ?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into newsagentApp.customer values (default, ?, ?, ?)");
 			preparedStatement.setString(1, c.getName());
 			preparedStatement.setString(2, c.getAddress());
 			preparedStatement.setString(3, c.getPhoneNumber());
@@ -67,7 +67,7 @@ public class MySQLAccess {
 	
 		try {
 			statement = connect.createStatement();
-			resultSet = statement.executeQuery("Select * from newsagent2021.customer");
+			resultSet = statement.executeQuery("Select * from newsagentApp.customer");
 		
 		}
 		catch (Exception e) {
@@ -87,10 +87,36 @@ public class MySQLAccess {
 			//Create prepared statement to issue SQL query to the database
 			if (custID == -99)
 				//Delete all entries in Table
-				preparedStatement = connect.prepareStatement("delete from newsagent2021.customer");
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.customer");
 			else
 				//Delete a particular Customer
-				preparedStatement = connect.prepareStatement("delete from newsagent2021.customer where id = " + custID);
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.customer where id = " + custID);
+			preparedStatement.executeUpdate();
+		 
+		}
+		catch (Exception e) {
+			deleteSucessfull = false;
+		}
+		
+		return deleteSucessfull;
+		
+	}
+	
+	public boolean deleteDocketById(int docketId) {
+
+		boolean deleteSucessfull = true;
+		
+		//Add Code here to call embedded SQL to insert Customer into DB
+		
+		try {
+			
+			//Create prepared statement to issue SQL query to the database
+			if (docketId == -99)
+				//Delete all entries in Table
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.delivery_docket");
+			else
+				//Delete a particular Customer
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.delivery_docket where id = " + docketId);
 			preparedStatement.executeUpdate();
 		 
 		}
