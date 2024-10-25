@@ -370,7 +370,11 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksUIIeEe-2u-hxdwQAZg" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
+<<<<<<< Updated upstream
         <children xsi:type="menu:HandledToolItem" xmi:id="_-tG9p5JgEe-Ozerz_XcCQQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_1sFZo4IeEe-2u-hxdwQAZg"/>
+=======
+        <children xsi:type="menu:HandledToolItem" xmi:id="_LZsP4JJfEe-WNOwxg1R7Xg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_1sFZo4IeEe-2u-hxdwQAZg"/>
+>>>>>>> Stashed changes
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksUYIeEe-2u-hxdwQAZg" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -378,8 +382,13 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksU4IeEe-2u-hxdwQAZg" elementId="org.eclipse.ui.workbench.edit">
         <tags>Draggable</tags>
+<<<<<<< Updated upstream
         <children xsi:type="menu:HandledToolItem" xmi:id="_-tG9rZJgEe-Ozerz_XcCQQ" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_1sCWLoIeEe-2u-hxdwQAZg"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_-tG9rpJgEe-Ozerz_XcCQQ" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_1sDkOoIeEe-2u-hxdwQAZg"/>
+=======
+        <children xsi:type="menu:HandledToolItem" xmi:id="_LZs29ZJfEe-WNOwxg1R7Xg" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_1sCWLoIeEe-2u-hxdwQAZg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_LZs29pJfEe-WNOwxg1R7Xg" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_1sDkOoIeEe-2u-hxdwQAZg"/>
+>>>>>>> Stashed changes
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksVIIeEe-2u-hxdwQAZg" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -403,7 +412,11 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksWIIeEe-2u-hxdwQAZg" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
+<<<<<<< Updated upstream
         <children xsi:type="menu:HandledToolItem" xmi:id="_-tQHkJJgEe-Ozerz_XcCQQ" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_1sFZU4IeEe-2u-hxdwQAZg"/>
+=======
+        <children xsi:type="menu:HandledToolItem" xmi:id="_LZs2_JJfEe-WNOwxg1R7Xg" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_1sFZU4IeEe-2u-hxdwQAZg"/>
+>>>>>>> Stashed changes
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_18ksWYIeEe-2u-hxdwQAZg" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -668,6 +681,7 @@
     <bindings xmi:id="_8ELZU4zKEe-584TgQRkMlQ" keySequence="CTRL+SHIFT+&lt;" command="_8DutZIzKEe-584TgQRkMlQ"/>
     <bindings xmi:id="_8ELZVIzKEe-584TgQRkMlQ" keySequence="CTRL+U" command="_8DutZIzKEe-584TgQRkMlQ"/>
     <bindings xmi:id="_8ELZVYzKEe-584TgQRkMlQ" keySequence="CTRL+&lt;" command="_8Dutd4zKEe-584TgQRkMlQ"/>
+<<<<<<< Updated upstream
     <bindings xmi:id="_1blkYZJfEe-S4OIMlvju2g" keySequence="ALT+SHIFT+K" command="_1sC9OYIeEe-2u-hxdwQAZg"/>
     <bindings xmi:id="_1blkYpJfEe-S4OIMlvju2g" keySequence="CTRL+SHIFT+F11" command="_1sDkXIIeEe-2u-hxdwQAZg"/>
     <bindings xmi:id="_1blkY5JfEe-S4OIMlvju2g" keySequence="ALT+SHIFT+E E" command="_1sAhA4IeEe-2u-hxdwQAZg"/>
@@ -679,6 +693,19 @@
     <bindings xmi:id="_1blkaZJfEe-S4OIMlvju2g" keySequence="ALT+SHIFT+E N" command="_1sGAxYIeEe-2u-hxdwQAZg"/>
     <bindings xmi:id="_1blkapJfEe-S4OIMlvju2g" keySequence="ALT+SHIFT+E P" command="_1r_5t4IeEe-2u-hxdwQAZg"/>
     <bindings xmi:id="_1blka5JfEe-S4OIMlvju2g" keySequence="ALT+SHIFT+E R" command="_1sBvEYIeEe-2u-hxdwQAZg"/>
+=======
+    <bindings xmi:id="_2tCFgZJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+K" command="_1sC9OYIeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2gJJcEe-V6PpmyTvPOQ" keySequence="CTRL+SHIFT+F11" command="_1sDkXIIeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2gZJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E E" command="_1sAhA4IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2gpJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E G" command="_1sC9A4IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2g5JcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E J" command="_1sAg14IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2hJJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E S" command="_1sC9VIIeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2hZJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E T" command="_1sAg-4IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2hpJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E L" command="_1sAg34IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2h5JcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E N" command="_1sGAxYIeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2iJJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E P" command="_1r_5t4IeEe-2u-hxdwQAZg"/>
+    <bindings xmi:id="_2tL2iZJcEe-V6PpmyTvPOQ" keySequence="ALT+SHIFT+E R" command="_1sBvEYIeEe-2u-hxdwQAZg"/>
+>>>>>>> Stashed changes
   </bindingTables>
   <bindingTables xmi:id="_1sisRIIeEe-2u-hxdwQAZg" elementId="org.eclipse.jdt.ui.javaEditorScope" bindingContext="_1sKRyoIeEe-2u-hxdwQAZg">
     <bindings xmi:id="_1sisRYIeEe-2u-hxdwQAZg" keySequence="CTRL+SHIFT+P" command="_1sEyc4IeEe-2u-hxdwQAZg"/>
@@ -1383,7 +1410,11 @@
     <tags>View</tags>
     <tags>categoryTag:XML</tags>
   </descriptors>
+<<<<<<< Updated upstream
   <descriptors xmi:id="_1lfHQJJfEe-S4OIMlvju2g" elementId="org.eclipse.eclemma.ui.CoverageView" label="Coverage" iconURI="platform:/plugin/org.eclipse.eclemma.ui/icons/full/eview16/coverage.png" tooltip="" category="Java" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+=======
+  <descriptors xmi:id="_23DkMJJcEe-V6PpmyTvPOQ" elementId="org.eclipse.eclemma.ui.CoverageView" label="Coverage" iconURI="platform:/plugin/org.eclipse.eclemma.ui/icons/full/eview16/coverage.png" tooltip="" category="Java" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+>>>>>>> Stashed changes
     <persistedState key="originalCompatibilityViewClass" value="org.eclipse.eclemma.internal.ui.coverageview.CoverageView"/>
     <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.eclemma.ui"/>
     <tags>View</tags>
@@ -2568,7 +2599,11 @@
   <addons xmi:id="_1rUkV4IeEe-2u-hxdwQAZg" elementId="MinMax Addon" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon"/>
   <addons xmi:id="_1rUkWIIeEe-2u-hxdwQAZg" elementId="org.eclipse.ui.workbench.addon.0" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
   <addons xmi:id="_1rh_oIIeEe-2u-hxdwQAZg" elementId="SplitterAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.splitteraddon.SplitterAddon"/>
+<<<<<<< Updated upstream
   <addons xmi:id="_-i9jIZJgEe-Ozerz_XcCQQ" elementId="org.eclipse.ui.ide.addon.0" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+=======
+  <addons xmi:id="_LPlRoZJfEe-WNOwxg1R7Xg" elementId="org.eclipse.ui.ide.addon.0" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+>>>>>>> Stashed changes
   <addons xmi:id="_dz0JgGOlEeSMMaPQU2nlzw" elementId="org.eclipse.ui.ide.application.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.ide.application/org.eclipse.ui.internal.ide.application.addons.ModelCleanupAddon"/>
   <categories xmi:id="_1r-EgIIeEe-2u-hxdwQAZg" elementId="org.eclipse.team.ui.category.team" name="Version control (Team)" description="Actions that apply when working with a version control system"/>
   <categories xmi:id="_1r-EgYIeEe-2u-hxdwQAZg" elementId="org.eclipse.ui.category.views" name="Views" description="Commands for opening views"/>

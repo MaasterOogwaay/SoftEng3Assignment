@@ -3,6 +3,10 @@
 	<section name="ImportExportAction">
 		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="org.eclipse.egit.ui.internal.clone.GitCloneWizard"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+<<<<<<< Updated upstream
+=======
+			<item value="org.eclipse.ui.Basic"/>
+>>>>>>> Stashed changes
 			<item value="org.eclipse.egit.ui.internal.clone.gitclonecategory"/>
 		</list>
 		<section name="ImportExportWizard.dialogBounds">
