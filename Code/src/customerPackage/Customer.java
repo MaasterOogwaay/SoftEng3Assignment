@@ -9,35 +9,35 @@ public class Customer {
 	private String address;
 	private String phoneNumber;
 	
-	void setId(int custId) {
+	public void setId(int custId) {
 		id = custId;
 	}
 	
-	void setName(String custName) {
+	public void setName(String custName) {
 		name = custName;
 	}
 	
-	void setAddress(String custAddr) {
+	public void setAddress(String custAddr) {
 		address = custAddr;
 	}
 	
-	void setPhoneNumber(String custPhone) {
+	public void setPhoneNumber(String custPhone) {
 		phoneNumber = custPhone;
 	}
 	
-	int getId() {
+	public int getId() {
 		return id;
 	}
 	
-	String getName() {
+	public String getName() {
 		return name;
 	}
 	
-	String getAddress() {
+	public String getAddress() {
 		return address;
 	}
 	
-	String getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 		
 	}
