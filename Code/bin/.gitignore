@@ -1,1 +1,5 @@
-/publicationPackage/
+/MySQLAccessPackage/
+/customerPackage/
+/exceptionHandlerPackage/
+/invoicePackage/
+/ordersPackage/
