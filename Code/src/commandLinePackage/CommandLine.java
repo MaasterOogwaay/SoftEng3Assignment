@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
+import customerPackage.Customer;
 
 public class CommandLine {
 	
@@ -144,7 +145,33 @@ public class CommandLine {
 	
 	                        switch (customerChoice) {
 	                            case "1":
-	                                System.out.println("Customer Account Created (Placeholder).");
+	                                System.out.println("Creating customer account");
+	                                System.out.println("Please enter Customer Name:");
+	                                String custName = keyboard.nextLine();
+
+	                                System.out.println("Please enter Customer Address:");
+	                                String custAddr = keyboard.nextLine();
+
+	                                System.out.println("Please enter Customer Phone Number:");
+	                                String custPhone = keyboard.nextLine();
+
+	                                try {
+	                                    // Create Customer object
+	                                    Customer newCustomer = new Customer(custName, custAddr, custPhone);
+
+	                                    // Create MySQLAccess object and insert the customer
+	                                    MySQLAccess dbAccess = new MySQLAccess();
+	                                    boolean success = dbAccess.insertCustomerDetailsAccount(newCustomer);
+
+	                                    if (success) {
+	                                        System.out.println("Customer created successfully.");
+	                                    } else {
+	                                        System.out.println("Failed to create customer.");
+	                                    }
+	                                } catch (Exception e) {
+	                                    System.out.println("Error: " + e.getMessage());
+	                                }
+
 	                                break;
 	                            case "2":
 	                                System.out.println("Displaying Customer Records (Placeholder).");
