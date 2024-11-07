@@ -1,5 +1,5 @@
 package publicationPackage;
-
+//comments
 public class Publication {
 	private Double price;
 	private int quantity;
