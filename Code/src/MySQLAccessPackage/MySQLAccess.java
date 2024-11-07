@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+
+import customerPackage.Customer;
+
 import java.sql.ResultSet;
 
 
@@ -16,7 +19,7 @@ public class MySQLAccess {
 	
 	final private String host ="localhost:3306";
 	final private String user = "root";
-	final private String password = "mike";
+	final private String password = "admin";
 	
 	
 	public MySQLAccess() throws Exception {
@@ -27,7 +30,7 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//Setup the connection with the DB
-			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentApp?" + "user=" + user + "&password=" + password);
+			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
 			throw e;
