@@ -42,33 +42,33 @@ public class MySQLAccess {
 	
     // Method to sign up a new user by adding them to the database
     public boolean signUpUser(NewsAgent na) {
+    	boolean insertSucessfull = true;
         try {
         	//Create prepared statement to issue SQL query to the database
         	preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.users (username, password) VALUES (?, ?)");
         	preparedStatement.setString(1, na.getUserName());
         	preparedStatement.setString(2, na.getPassWord()); 
         	preparedStatement.executeUpdate();
-            return true;
         } catch (Exception e) {
-            System.out.println("Sign-up error: " + e.getMessage());
-            return false;
+        	insertSucessfull = false;
         }
-    }
+        return insertSucessfull;
+    } // end signUpUser
     
     // Method to log in a user by validating their credentials
     public boolean logInUser(String username, String password) {
+    	boolean logInSucessfull = true;
         try {
         	//Create prepared statement to issue SQL query to the database
         	preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.users WHERE username = ? AND password = ?");
         	preparedStatement.setString(1, username);
         	preparedStatement.setString(2, password);
-            ResultSet rs = preparedStatement.executeQuery();
-            return rs.next(); // Returns true if a matching user is found
+            preparedStatement.executeQuery();
         } catch (Exception e) {
-            System.out.println("Login error: " + e.getMessage());
-            return false;
+        	logInSucessfull = false;
         }
-    }
+        return logInSucessfull;
+    } // End logInUser
 
 	public boolean insertCustomerDetailsAccount(Customer c) {
 	
