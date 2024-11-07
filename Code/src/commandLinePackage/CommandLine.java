@@ -175,9 +175,60 @@ public class CommandLine {
 	                                break;
 	                            case "2":
 	                                System.out.println("Displaying Customer Records (Placeholder).");
+	                                System.out.println("Retrieving all customer records...");
+
+	                                try {
+	                                    MySQLAccess dbAccess = new MySQLAccess();
+	                                    ResultSet resultSet = dbAccess.retrieveAllCustomerAccounts();
+
+	                                    if (resultSet != null) {
+	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+	                                        System.out.printf("%10s %30s %30s %30s%n", "ID", "Name", "Address", "Phone Number");
+	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+
+	                                        // Iterate through the ResultSet and print each record
+	                                        while (resultSet.next()) {
+	                                            int id = resultSet.getInt("id");
+	                                            String name = resultSet.getString("name");
+	                                            String address = resultSet.getString("address");
+	                                            String phoneNumber = resultSet.getString("phoneNumber");
+
+	                                            System.out.printf("%10d %30s %30s %30s%n", id, name, address, phoneNumber);
+	                                        }
+	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+	                                    } else {
+	                                        System.out.println("No customer records found.");
+	                                    }
+
+	                                } catch (Exception e) {
+	                                    System.out.println("Error retrieving customer records: " + e.getMessage());
+	                                }
 	                                break;
 	                            case "3":
-	                                System.out.println("Customer Record Deleted (Placeholder).");
+	                                System.out.println("Please enter the ID of the customer you wish to delete (-99 to delete all):");
+	                                int customerId;
+	                                
+	                                try {
+	                                    customerId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+
+	                                    MySQLAccess dbAccess = new MySQLAccess();
+	                                    boolean success = dbAccess.deleteCustomerById(customerId);
+
+	                                    if (success) {
+	                                    	if (customerId == -99) {
+	                                    		System.out.println("All customer records were deleted successfully.");
+	                                    	} else {
+	                                    		System.out.println("Customer with ID " + customerId + " was deleted successfully.");
+	                                    	}
+	                                    } else {
+	                                        System.out.println("No customer found with ID " + customerId + ".");
+	                                    }
+
+	                                } catch (NumberFormatException e) {
+	                                    System.out.println("Invalid input. Please enter a numeric ID.");
+	                                } catch (Exception e) {
+	                                    System.out.println("Error deleting customer record: " + e.getMessage());
+	                                }
 	                                break;
 	                            case "99":
 	                                customerMenuOpen = false;  // Return to Main Menu
