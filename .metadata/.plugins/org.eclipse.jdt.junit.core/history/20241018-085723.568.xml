@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="PublicationTest" project="NewsAgentApplication" tests="4" started="4" failures="0" errors="0" ignored="0">
-  <testsuite name="publicationPackage.PublicationTest" time="0.051" displayname="PublicationTest" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]">
-    <testcase name="testCustomer001" classname="publicationPackage.PublicationTest" time="0.041" displayname="testCustomer001()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer001()]"/>
-    <testcase name="testCustomer002" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer002()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer002()]"/>
-    <testcase name="testCustomer003" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer003()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer003()]"/>
-    <testcase name="testCustomer004" classname="publicationPackage.PublicationTest" time="0.002" displayname="testCustomer004()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer004()]"/>
-  </testsuite>
-</testrun>

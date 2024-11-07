@@ -1,4 +1,9 @@
-GitRepositoriesView.GitDirectories=
-GitRepositoriesView.GitDirectories.relative=
+<<<<<<< Updated upstream
+GitRepositoriesView.GitDirectories=C\:\\Users\\darra\\git\\SoftEng3Assignment\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\darra\\git\\SoftEng3Assignment\\.git;
+=======
+GitRepositoriesView.GitDirectories=C\:\\Users\\darra\\git\\SoftEng3Assignment\\.git;C\:\\Users\\darra\\OneDrive\\Documents\\GitHub\\SoftEng3Assignment\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\darra\\git\\SoftEng3Assignment\\.git;C\:\\Users\\darra\\OneDrive\\Documents\\GitHub\\SoftEng3Assignment\\.git;
+>>>>>>> Stashed changes
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

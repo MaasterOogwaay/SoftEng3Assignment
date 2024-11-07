@@ -1,0 +1,176 @@
+package publicationPackage;
+
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class PublicationTest {
+
+	/*
+	 * @Test void test() { fail("Not yet implemented"); }
+	 */
+	@Test
+	void testCustomer001() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		//Create the Customer Object
+		
+		
+		try {
+			
+			//System accepts minimum length publicationName
+			Publication p1= new Publication("2.5", "2", "ab","Daily");
+			
+			// Use getters to check for object creation
+			//assertEquals(0, p1.getId());
+			assertEquals("ab", p1.getName());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+		
+	}
+	@Test
+	void testCustomer002() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			
+			//System accepts maximum length publicationName
+			Publication p1= new Publication("2.5", "2", "longpublicationnameinputwithmaximumfiftycharacters","Daily");
+			assertEquals("longpublicationnameinputwithmaximumfiftycharacters", p1.getName());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+		
+	}
+	@Test
+	void testCustomer003() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//the publication is added to the database
+			Publication p1= new Publication("2.5", "2", "longpublicationnameinputwithmaximumfiftycharacters","Daily");
+			//@todoassertEquals("longpublicationnameinputwithmaximumfiftycharacters", p1.getName());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer004() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Monthly" for Frequency
+			Publication p1= new Publication("2.5", "2", "The Times","Monthly");
+			assertEquals("Monthly", p1.getFrequency());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer005() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Daily" for Frequency
+			Publication p1= new Publication("2.5", "2", "The Times","Daily");
+			assertEquals("Daily", p1.getFrequency());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer006() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Weekly" for Frequency
+			Publication p1= new Publication("2.5", "2", "The Times","Weekly");
+			assertEquals("Weekly", p1.getFrequency());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer007() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Weekly" for Frequency
+			Publication p1= new Publication("2.55", "2", "The Times","Weekly");
+			assertEquals(2.55, p1.getPrice());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer008() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Weekly" for Frequency
+			Publication p1= new Publication("2.55", "0", "The Times","Weekly");
+			assertEquals(0, p1.getQuantity());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer009() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Weekly" for Frequency
+			Publication p1= new Publication("2.55", "5", "The Times","Weekly");
+			assertEquals(5, p1.getQuantity());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+	}
+	@Test
+	void testCustomer010() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System doesn't accepts -5 publicationQuantity
+			Publication p1= new Publication("2.55", "-5", "The Times","Weekly");
+			//assertThrows(Exception e);
+			fail("Exception expected");
+		}
+		catch (PublicationExceptionHandler e) {
+			assertEquals("Publicatoin quantity needs to be 0 or greater", e.getMessage());	
+			
+		}
+	}
+	@Test
+	void testCustomer011() {
+		//Publication p1= new Publication("2.5", "2", "The Times","Daily");
+		try {
+			//System accepts  "Weekly" for Frequency
+			Publication p1= new Publication("2.55", "5", "The Times","Weekly");
+			p1.printPublication(p1);
+			assertEquals(5, p1.getQuantity());
+		}
+		catch (PublicationExceptionHandler e) {
+			fail("Exception not expected");
+		}
+		
+	}
+	
+	//Test #: 2
+	//Test Objective: To catch an invalid customer name
+	//Inputs: custName = "J"
+	//Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
+
+	/*
+	 * public void testValidateName001() {
+	 * 
+	 * try {
+	 * 
+	 * //Call method under test Customer.validateName("J");
+	 * fail("Exception expected"); } catch (CustomerExceptionHandler e) {
+	 * assertEquals("Customer Name does not meet minimum length requirements",
+	 * e.getMessage()); } }
+	 */
+
+}

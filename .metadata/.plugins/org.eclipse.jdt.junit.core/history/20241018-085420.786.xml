@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="PublicationTest" project="NewsAgentApplication" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="publicationPackage.PublicationTest" time="0.037" displayname="PublicationTest" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]">
-    <testcase name="testCustomer001" classname="publicationPackage.PublicationTest" time="0.037" displayname="testCustomer001()" uniqueid="[engine:junit-jupiter]/[class:publicationPackage.PublicationTest]/[method:testCustomer001()]"/>
-  </testsuite>
-</testrun>
