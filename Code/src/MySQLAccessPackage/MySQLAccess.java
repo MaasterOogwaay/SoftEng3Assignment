@@ -63,6 +63,32 @@ public class MySQLAccess {
 		return insertSucessfull;
 		
 	}// end insertCustomerDetailsAccount
+	
+	public boolean updateCustomerDetailsById(int custId, String newName, String newAddress, String newPhoneNumber) {
+		
+		boolean insertSucessfull = true;
+	
+		//Add Code here to call embedded SQL to update Customer
+	
+		try {
+		
+			//Create prepared statement to issue SQL query to the database
+			preparedStatement = connect.prepareStatement("update newsagentApp.customer SET name = ?, address = ?, phoneNumber = ? WHERE id = ?");
+			preparedStatement.setString(1, newName);
+			preparedStatement.setString(2, newAddress);
+			preparedStatement.setString(3, newPhoneNumber);
+			preparedStatement.setInt(4, custId);
+			preparedStatement.executeUpdate();
+		
+	 
+		}
+		catch (Exception e) {
+			insertSucessfull = false;
+		}
+	
+		return insertSucessfull;
+		
+	}// end updateCustomerDetailsById
 
 	public ResultSet retrieveAllCustomerAccounts() {
 		

@@ -35,7 +35,8 @@ public class CommandLine {
 		System.out.println("Please choose ONE of the following options:");
 		System.out.println("1. Create Customer Account");
 		System.out.println("2. View ALL Customer Records");
-		System.out.println("3. Delete Customer Record by ID");
+		System.out.println("3. Update Customer Record by ID");
+		System.out.println("4. Delete Customer Record by ID");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -204,7 +205,37 @@ public class CommandLine {
 	                                    System.out.println("Error retrieving customer records: " + e.getMessage());
 	                                }
 	                                break;
-	                            case "3":
+	                            case "3": // Update Customer Record by ID
+	                                System.out.println("Please enter the ID of the customer you wish to update:");
+	                                
+	                                try {
+	                                    int customerId = Integer.parseInt(keyboard.nextLine());  // Convert user input to an integer
+
+	                                    // Prompt the user for new details
+	                                    System.out.println("Enter new name:");
+	                                    String newName = keyboard.nextLine();
+	                                    System.out.println("Enter new address:");
+	                                    String newAddress = keyboard.nextLine();
+	                                    System.out.println("Enter new phone number:");
+	                                    String newPhoneNumber = keyboard.nextLine();
+
+	                                    // Create MySQLAccess object and update the customer
+	                                    MySQLAccess dbAccess = new MySQLAccess();
+	                                    boolean success = dbAccess.updateCustomerDetailsById(customerId, newName, newAddress, newPhoneNumber);
+
+	                                    if (success) {
+	                                        System.out.println("Customer with ID " + customerId + " was updated successfully.");
+	                                    } else {
+	                                        System.out.println("No customer found with ID " + customerId + ".");
+	                                    }
+
+	                                } catch (NumberFormatException e) {
+	                                    System.out.println("Invalid input. Please enter a numeric ID.");
+	                                } catch (Exception e) {
+	                                    System.out.println("Error updating customer record: " + e.getMessage());
+	                                }
+	                                break;
+	                            case "4":
 	                                System.out.println("Please enter the ID of the customer you wish to delete (-99 to delete all):");
 	                                int customerId;
 	                                
