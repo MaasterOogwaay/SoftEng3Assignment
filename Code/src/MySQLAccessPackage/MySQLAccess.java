@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import customerPackage.Customer;
+<<<<<<< HEAD
 import publicationPackage.Publication;
+=======
+import newsAgentPackage.NewsAgent;
+>>>>>>> 88875a8a75292214151fe546f7b05b06c245f50f
 
 import java.sql.ResultSet;
 
@@ -39,7 +43,37 @@ public class MySQLAccess {
 		}
 		
 		
-	}	
+	}
+	
+    // Method to sign up a new user by adding them to the database
+    public boolean signUpUser(NewsAgent na) {
+    	boolean insertSucessfull = true;
+        try {
+        	//Create prepared statement to issue SQL query to the database
+        	preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.users (username, password) VALUES (?, ?)");
+        	preparedStatement.setString(1, na.getUserName());
+        	preparedStatement.setString(2, na.getPassWord()); 
+        	preparedStatement.executeUpdate();
+        } catch (Exception e) {
+        	insertSucessfull = false;
+        }
+        return insertSucessfull;
+    } // end signUpUser
+    
+    // Method to log in a user by validating their credentials
+    public boolean logInUser(String username, String password) {
+    	boolean logInSucessfull = true;
+        try {
+        	//Create prepared statement to issue SQL query to the database
+        	preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.users WHERE username = ? AND password = ?");
+        	preparedStatement.setString(1, username);
+        	preparedStatement.setString(2, password);
+            preparedStatement.executeQuery();
+        } catch (Exception e) {
+        	logInSucessfull = false;
+        }
+        return logInSucessfull;
+    } // End logInUser
 
 	public boolean insertCustomerDetailsAccount(Customer c) {
 	
