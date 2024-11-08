@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import customerPackage.Customer;
-<<<<<<< HEAD
+import deliveryPersonPackage.DeliveryPerson;
 import publicationPackage.Publication;
-=======
+import warningsPackage.Warnings;
 import newsAgentPackage.NewsAgent;
->>>>>>> 88875a8a75292214151fe546f7b05b06c245f50f
 
 import java.sql.ResultSet;
 
@@ -24,7 +23,7 @@ public class MySQLAccess {
 	
 	final private String host ="localhost:3306";//"localhost:3307"
 	final private String user = "root";
-	final private String password = "";
+	final private String password = "admin";
 	
 	
 	public MySQLAccess() throws Exception {
@@ -299,8 +298,8 @@ public class MySQLAccess {
 		try {
 			preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.delivery_person VALUES (default, ?, ?, ?)");
 			preparedStatement.setString(1, d.getName());
-			preparedStatement.setString(2, d.getPhoneNumber());
-			preparedStatement.setString(3, d.getRoute());
+			preparedStatement.setString(2, d.getContactInfo());
+			preparedStatement.setString(3, d.getAssignedRoute());
 			preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
@@ -313,7 +312,7 @@ public class MySQLAccess {
 	}
 
 	// Insert Warning details
-	public boolean insertWarningDetails(Warning w) {
+	public boolean insertWarningDetails(Warnings w) {
 		boolean insertSuccessful = true;
 
 		try {
