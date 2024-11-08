@@ -49,6 +49,10 @@ public class CommandLine {
 		System.out.println("3. Delivery Docket");
 		System.out.println("4. Orders");
 		System.out.println("5. Publications");
+		System.out.println("6. Delivery Person");
+		System.out.println("7. Warnings");
+
+		
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -155,7 +159,53 @@ public class CommandLine {
 		System.out.println(" ");
 
 	}
+	private static void listDeliveryPersonFunctionalityAvailable() {
+        System.out.println(" ");
+        System.out.println("=============================================");
+        System.out.println("Please choose ONE of the following options:");
+        System.out.println("1. Create Delivery Person");
+        System.out.println("2. Read Delivery Persons");
+        System.out.println("3. Update Delivery Person by ID");
+        System.out.println("4. Delete Delivery Person by ID");
+        System.out.println("5. Manage Warnings");
+        System.out.println("99. Return to Previous Page");
+        System.out.println("=============================================");
+        System.out.println(" ");
+    }
+	private static void listWarningsFunctionalityAvailable() {
+        System.out.println(" ");
+        System.out.println("=============================================");
+        System.out.println("Please choose ONE of the following options:");
+        System.out.println("1. Create Warning");
+        System.out.println("2. Read Warnings");
+        System.out.println("3. Update Warning");
+        System.out.println("4. Delete Warning");
+        System.out.println("99. Return to Delivery Person Menu");
+        System.out.println("=============================================");
+        System.out.println(" ");
+    }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 
 	private static boolean printCustomerTable(ResultSet rs) throws Exception {
 
@@ -220,7 +270,26 @@ public class CommandLine {
 		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
 
 		return true;
+	}
+		
+		private static void printTable(ResultSet rs, String tableName) throws Exception {
+		    System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+		    System.out.println("Table: " + tableName);
+		    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+		        System.out.printf("%30s", rs.getMetaData().getColumnName(i));
+		    }
+		    System.out.println();
+		    while (rs.next()) {
+		        for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+		            System.out.printf("%30s", rs.getString(i));
+		        }
+		        System.out.println();
+		    }
+		    System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+		
 
+		
+		
 =======
 		} // end while
 		System.out.println(
@@ -644,6 +713,193 @@ public class CommandLine {
 					break;
 
 <<<<<<< HEAD
+					
+
+
+				case "6": // Delivery Person Functionality
+				    boolean deliveryPersonMenuOpen = true;
+				    while (deliveryPersonMenuOpen) {
+				        listDeliveryPersonFunctionalityAvailable(); // Show Delivery Person Submenu
+				        String deliveryPersonChoice = keyboard.nextLine();  // Take user input
+
+				        switch (deliveryPersonChoice) {
+				            case "1": // Create Delivery Person
+				                try {
+				                    System.out.println("Enter Delivery Person's Name:");
+				                    String name = keyboard.nextLine();
+				                    System.out.println("Enter Contact Number:");
+				                    String contact = keyboard.nextLine();
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.createDeliveryPerson(name, contact);
+
+				                    if (success) {
+				                        System.out.println("Delivery Person created successfully.");
+				                    } else {
+				                        System.out.println("Error creating Delivery Person.");
+				                    }
+				                } catch (Exception e) {
+				                    System.out.println("Error: " + e.getMessage());
+				                }
+				                break;
+
+				            case "2": // Read Delivery Persons
+				                try {
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    ResultSet rs = dbAccess.getDeliveryPersons();
+
+				                    printTable(rs, "Delivery Persons");
+				                } catch (Exception e) {
+				                    System.out.println("Error: " + e.getMessage());
+				                }
+				                break;
+
+				            case "3": // Update Delivery Person by ID
+				                try {
+				                    System.out.println("Enter Delivery Person ID to Update:");
+				                    int id = Integer.parseInt(keyboard.nextLine());
+
+				                    System.out.println("Enter New Name:");
+				                    String newName = keyboard.nextLine();
+				                    System.out.println("Enter New Contact Number:");
+				                    String newContact = keyboard.nextLine();
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.updateDeliveryPersonById(id, newName, newContact);
+
+				                    if (success) {
+				                        System.out.println("Delivery Person with ID " + id + " was updated successfully.");
+				                    } else {
+				                        System.out.println("No Delivery Person found with ID " + id + ".");
+				                    }
+				                } catch (NumberFormatException e) {
+				                    System.out.println("Invalid ID. Please enter a numeric value.");
+				                } catch (Exception e) {
+				                    System.out.println("Error updating Delivery Person: " + e.getMessage());
+				                }
+				                break;
+
+				            case "4": // Delete Delivery Person by ID
+				                try {
+				                    System.out.println("Enter Delivery Person ID to Delete:");
+				                    int id = Integer.parseInt(keyboard.nextLine());
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.deleteDeliveryPersonById(id);
+
+				                    if (success) {
+				                        System.out.println("Delivery Person with ID " + id + " was deleted successfully.");
+				                    } else {
+				                        System.out.println("No Delivery Person found with ID " + id + ".");
+				                    }
+				                } catch (NumberFormatException e) {
+				                    System.out.println("Invalid ID. Please enter a numeric value.");
+				                } catch (Exception e) {
+				                    System.out.println("Error deleting Delivery Person: " + e.getMessage());
+				                }
+				                break;
+
+				            case "99":
+				                deliveryPersonMenuOpen = false;  // Return to Main Menu
+				                break;
+				            default:
+				                System.out.println("No valid option selected.");
+				        }
+				    }
+				    break;
+
+				case "7": // Warning Functionality
+				    boolean warningMenuOpen = true;
+				    while (warningMenuOpen) {
+				        listWarningsFunctionalityAvailable(); // Show Warnings Submenu
+				        String warningChoice = keyboard.nextLine();  // Take user input
+
+				        switch (warningChoice) {
+				            case "1": // Create Warning
+				                try {
+				                    System.out.println("Enter Warning Message:");
+				                    String message = keyboard.nextLine();
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.createWarning(message);
+
+				                    if (success) {
+				                        System.out.println("Warning created successfully.");
+				                    } else {
+				                        System.out.println("Error creating Warning.");
+				                    }
+				                } catch (Exception e) {
+				                    System.out.println("Error: " + e.getMessage());
+				                }
+				                break;
+
+				            case "2": // Read Warnings
+				                try {
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    ResultSet rs = dbAccess.getWarnings();
+
+				                    printTable(rs, "Warnings");
+				                } catch (Exception e) {
+				                    System.out.println("Error: " + e.getMessage());
+				                }
+				                break;
+
+				            case "3": // Update Warning by ID
+				                try {
+				                    System.out.println("Enter Warning ID to Update:");
+				                    int id = Integer.parseInt(keyboard.nextLine());
+
+				                    System.out.println("Enter New Warning Message:");
+				                    String newMessage = keyboard.nextLine();
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.updateWarningById(id, newMessage);
+
+				                    if (success) {
+				                        System.out.println("Warning with ID " + id + " was updated successfully.");
+				                    } else {
+				                        System.out.println("No Warning found with ID " + id + ".");
+				                    }
+				                } catch (NumberFormatException e) {
+				                    System.out.println("Invalid ID. Please enter a numeric value.");
+				                } catch (Exception e) {
+				                    System.out.println("Error updating Warning: " + e.getMessage());
+				                }
+				                break;
+
+				            case "4": // Delete Warning by ID
+				                try {
+				                    System.out.println("Enter Warning ID to Delete:");
+				                    int id = Integer.parseInt(keyboard.nextLine());
+
+				                    MySQLAccess dbAccess = new MySQLAccess();
+				                    boolean success = dbAccess.deleteWarningById(id);
+
+				                    if (success) {
+				                        System.out.println("Warning with ID " + id + " was deleted successfully.");
+				                    } else {
+				                        System.out.println("No Warning found with ID " + id + ".");
+				                    }
+				                } catch (NumberFormatException e) {
+				                    System.out.println("Invalid ID. Please enter a numeric value.");
+				                } catch (Exception e) {
+				                    System.out.println("Error deleting Warning: " + e.getMessage());
+				                }
+				                break;
+
+				            case "99":
+				                warningMenuOpen = false;  // Return to Main Menu
+				                break;
+				            default:
+				                System.out.println("No valid option selected.");
+				        }
+				    }
+				    break;
+				    
+				    
+				    
+				    
+
 				case "5": // Publication Functionality
 					boolean publicationMenuOpen = true;
 					while (publicationMenuOpen) {
@@ -748,6 +1004,8 @@ public class CommandLine {
 								System.out.println("Error updating publication: " + e.getMessage());
 							}
 							break;
+							
+
 						case "4":
 							System.out.println("Please enter the ID of the publication you wish to delete (-99 to delete all):");
 							int publicationId;

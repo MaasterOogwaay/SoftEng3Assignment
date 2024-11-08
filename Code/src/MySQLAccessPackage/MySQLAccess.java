@@ -291,7 +291,162 @@ public class MySQLAccess {
 		
 	}
 	
+	//////////////////////////////Warnings/DeliveryPerson Zone////////////////////////////////////////////
 
+	public boolean insertDeliveryPersonDetails(DeliveryPerson d) {
+		boolean insertSuccessful = true;
+
+		try {
+			preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.delivery_person VALUES (default, ?, ?, ?)");
+			preparedStatement.setString(1, d.getName());
+			preparedStatement.setString(2, d.getPhoneNumber());
+			preparedStatement.setString(3, d.getRoute());
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			insertSuccessful = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+
+		return insertSuccessful;
+	}
+
+	// Insert Warning details
+	public boolean insertWarningDetails(Warning w) {
+		boolean insertSuccessful = true;
+
+		try {
+			preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.warning VALUES (default, ?, ?, ?)");
+			preparedStatement.setInt(1, w.getCustomerId());
+			preparedStatement.setString(2, w.getReason());
+			preparedStatement.setTimestamp(3, w.getDateIssued());
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			insertSuccessful = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+
+		return insertSuccessful;
+	}
+
+	// READ Operations
+
+	// Retrieve all DeliveryPersons
+	public ResultSet retrieveAllDeliveryPersons() {
+		try {
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("SELECT * FROM newsagentApp.delivery_person");
+
+		} catch (Exception e) {
+			resultSet = null;
+			e.printStackTrace();
+		}
+		return resultSet;
+	}
+
+	// Retrieve all Warnings
+	public ResultSet retrieveAllWarnings() {
+		try {
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("SELECT * FROM newsagentApp.warning");
+
+		} catch (Exception e) {
+			resultSet = null;
+			e.printStackTrace();
+		}
+		return resultSet;
+	}
+
+	// UPDATE Operations
+
+	// Update DeliveryPerson details by ID
+	public boolean updateDeliveryPersonDetailsById(int personId, String newName, String newPhone, String newRoute) {
+		boolean updateSuccessful = true;
+
+		try {
+			preparedStatement = connect.prepareStatement("UPDATE newsagentApp.delivery_person SET name = ?, phone = ?, route = ? WHERE id = ?");
+			preparedStatement.setString(1, newName);
+			preparedStatement.setString(2, newPhone);
+			preparedStatement.setString(3, newRoute);
+			preparedStatement.setInt(4, personId);
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			updateSuccessful = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+
+		return updateSuccessful;
+	}
+
+	// Update Warning details by ID
+	public boolean updateWarningDetailsById(int warningId, int newCustomerId, String newReason, Timestamp newDateIssued) {
+		boolean updateSuccessful = true;
+
+		try {
+			preparedStatement = connect.prepareStatement("UPDATE newsagentApp.warning SET customer_id = ?, reason = ?, date_issued = ? WHERE id = ?");
+			preparedStatement.setInt(1, newCustomerId);
+			preparedStatement.setString(2, newReason);
+			preparedStatement.setTimestamp(3, newDateIssued);
+			preparedStatement.setInt(4, warningId);
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			updateSuccessful = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+
+		return updateSuccessful;
+	}
+
+	// DELETE Operations
+
+	// Delete DeliveryPerson by ID
+	public boolean deleteDeliveryPersonById(int personId) {
+		boolean deleteSuccessful = true;
+
+		try {
+			if (personId == -99) {
+				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.delivery_person");
+			} else {
+				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.delivery_person WHERE id = ?");
+				preparedStatement.setInt(1, personId);
+			}
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			deleteSuccessful = false;
+			e.printStackTrace();
+		}
+
+		return deleteSuccessful;
+	}
+
+	// Delete Warning by ID
+	public boolean deleteWarningById(int warningId) {
+		boolean deleteSuccessful = true;
+
+		try {
+			if (warningId == -99) {
+				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning");
+			} else {
+				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning WHERE id = ?");
+				preparedStatement.setInt(1, warningId);
+			}
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			deleteSuccessful = false;
+			e.printStackTrace();
+		}
+
+		return deleteSuccessful;
+	}
 
 }// end Class
 
