@@ -7,6 +7,7 @@ import java.util.Scanner;
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
 import newsAgentPackage.NewsAgent;
+import publicationPackage.Publication;
 
 public class CommandLine {
 
@@ -38,6 +39,7 @@ public class CommandLine {
 		System.out.println("2. Delivery Area");
 		System.out.println("3. Delivery Docket");
 		System.out.println("4. Orders");
+		System.out.println("5. Publications");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -106,6 +108,23 @@ public class CommandLine {
 		System.out.println("2. Read Order");
 		System.out.println("3. Update Order by ID");
 		System.out.println("4. Delete Order by ID");
+		System.out.println("99. Return to Previous Page");
+		System.out.println("=============================================");
+		System.out.println(" ");
+
+	}
+
+	private static void listPublicationFunctionalityAvailable() {
+
+		// Present Customer with Functionality Options
+
+		System.out.println(" ");
+		System.out.println("=============================================");
+		System.out.println("Please choose ONE of the following options:");
+		System.out.println("1. Create New Publication");
+		System.out.println("2. View ALL Publications");
+		System.out.println("3. Update Publication by ID");
+		System.out.println("4. Delete Publication by ID");
 		System.out.println("99. Return to Previous Page");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -284,7 +303,8 @@ public class CommandLine {
 							System.out.println("Please enter the ID of the customer you wish to update:");
 
 							try {
-								int customerId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+								int customerId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an
+																						// integer
 
 								// Prompt the user for new details
 								System.out.println("Enter new name:");
@@ -296,7 +316,8 @@ public class CommandLine {
 
 								// Create MySQLAccess object and update the customer
 								MySQLAccess dbAccess = new MySQLAccess();
-								boolean success = dbAccess.updateCustomerDetailsById(customerId, newName, newAddress, newPhoneNumber);
+								boolean success = dbAccess.updateCustomerDetailsById(customerId, newName, newAddress,
+										newPhoneNumber);
 
 								if (success) {
 									System.out.println("Customer with ID " + customerId + " was updated successfully.");
@@ -311,7 +332,8 @@ public class CommandLine {
 							}
 							break;
 						case "4": // Delete Customer By ID
-							System.out.println("Please enter the ID of the customer you wish to delete (-99 to delete all):");
+							System.out.println(
+									"Please enter the ID of the customer you wish to delete (-99 to delete all):");
 							int customerId;
 
 							try {
@@ -325,7 +347,8 @@ public class CommandLine {
 									if (customerId == -99) {
 										System.out.println("All customer records were deleted successfully.");
 									} else {
-										System.out.println("Customer with ID " + customerId + " was deleted successfully.");
+										System.out.println(
+												"Customer with ID " + customerId + " was deleted successfully.");
 									}
 								} else {
 									System.out.println("No customer found with ID " + customerId + ".");
@@ -420,6 +443,155 @@ public class CommandLine {
 							break;
 						case "4":
 							System.out.println("Order Deleted (Placeholder).");
+							break;
+						case "99":
+							orderMenuOpen = false; // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				case "5": // Publication Functionality
+					boolean publicationMenuOpen = true;
+					while (publicationMenuOpen) {
+						listPublicationFunctionalityAvailable(); // Show Customer Submenu
+						String publicationChoice = keyboard.nextLine(); // Take user input
+
+						switch (publicationChoice) {
+						case "1": // Create Customer Account
+							System.out.println("Creating new Publication");
+							System.out.println("Please enter Publication Name:");
+							String pubName = keyboard.nextLine();
+
+							System.out.println("Please enter Publication price:");
+							String pubPrice = keyboard.nextLine();
+
+							System.out.println("Please enter Publication quantity:");
+							String pubQuantity = keyboard.nextLine();
+
+							System.out.println("Please enter Publication Frequency:");
+							String pubFrequency = keyboard.nextLine();
+
+							try {
+								// Create Customer object
+								Publication newPublication = new Publication(pubName, pubPrice, pubQuantity,
+										pubFrequency);
+
+								// Create MySQLAccess object and insert the customer
+
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.insertPublicationDetailsAccount(newPublication);
+
+								if (success) {
+									System.out.println("Publication created successfully.");
+								} else {
+									System.out.println("Failed to create Publication.");
+								}
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
+
+							break;
+						case "2":
+							System.out.println("Retrieving all publication records...");
+							try {
+								MySQLAccess dbAccess = new MySQLAccess();
+
+								ResultSet resultSet = dbAccess.retrieveAllPublications();
+
+								if (resultSet != null) {
+									System.out.println(
+											"------------------------------------------------------------------------------------------------------------------------------------");
+									System.out.printf("%10s %20s %20s %30s %20s %n", "ID", "Name", "Price", "Quantity",
+											"Frequency");
+									System.out.println(
+											"------------------------------------------------------------------------------------------------------------------------------------");
+
+									// Iterate through the ResultSet and print each record
+									while (resultSet.next()) {
+										int id = resultSet.getInt("id");
+										String name = resultSet.getString("name");
+										String price = resultSet.getString("price");
+										String quantity = resultSet.getString("quantity");
+										String frequency = resultSet.getString("frequency");
+
+										System.out.printf("%10d  %20s %20s %30s %20s %n", id, name, price, quantity,
+												frequency);
+									}
+									System.out.println(
+											"------------------------------------------------------------------------------------------------------------------------------------");
+								} else {
+									System.out.println("No Publications found.");
+								}
+
+							} catch (Exception e) {
+								System.out.println("Error retrieving Publications: " + e.getMessage());
+							}
+							break;
+						case "3":
+							System.out.println("Please enter the ID of the publicatoin you wish to update:");
+
+							try {
+								int publicationId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an
+																							// integer
+
+								// Prompt the user for new details
+								System.out.println("Enter new name:");
+								String newName = keyboard.nextLine();
+								System.out.println("Enter new price:");
+								String newPrice = keyboard.nextLine();
+								System.out.println("Enter new quantity:");
+								String newQuantity = keyboard.nextLine();
+								System.out.println("Enter new frequency:");
+								String newFrequency = keyboard.nextLine();
+								// Create MySQLAccess object and update the publication
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.updatePublicationDetailsById(publicationId, newName,
+										newPrice, newQuantity, newFrequency);
+
+								if (success) {
+									System.out.println(
+											"Publication with ID " + publicationId + " was updated successfully.");
+								} else {
+									System.out.println("No publication found with ID " + publicationId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error updating publication: " + e.getMessage());
+							}
+							break;
+						case "4":
+							System.out.println(
+									"Please enter the ID of the publication you wish to delete (-99 to delete all):");
+							int publicationId;
+
+							try {
+								publicationId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an
+																						// integer
+
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.deletePublicationById(publicationId);
+
+								if (success) {
+									if (publicationId == -99) {
+										System.out.println("All publication records were deleted successfully.");
+									} else {
+										System.out.println(
+												"Publication with ID " + publicationId + " was deleted successfully.");
+									}
+								} else {
+									System.out.println("No publication found with ID " + publicationId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error deleting publication record: " + e.getMessage());
+							}
 							break;
 						case "99":
 							orderMenuOpen = false; // Return to Main Menu
