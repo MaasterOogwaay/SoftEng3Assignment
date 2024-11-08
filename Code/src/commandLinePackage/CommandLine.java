@@ -6,13 +6,14 @@ import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
+import publicationPackage.Publication;
 
 public class CommandLine {
-	
+
 	private static void listNewsAgentFunctionalityAvailable() {
-		
+
 		//Present Newsagent with Functionality Options
-		
+
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -20,16 +21,17 @@ public class CommandLine {
 		System.out.println("2. Delivery Area");
 		System.out.println("3. Delivery Docket");
 		System.out.println("4. Orders");
+		System.out.println("5. Publications");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
-		
+
 	}
-	
+
 	private static void listCustomerFunctionalityAvailable() {
-		
+
 		//Present Customer with Functionality Options
-		
+
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -40,13 +42,13 @@ public class CommandLine {
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
-		
+
 	}
-	
+
 	private static void listDeliveryDocketFunctionalityAvailable() {
-		
+
 		//Present Customer with Functionality Options
-		
+
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -57,13 +59,13 @@ public class CommandLine {
 		System.out.println("99. Return to Previous Page");
 		System.out.println("=============================================");
 		System.out.println(" ");
-		
+
 	}
-	
+
 	private static void listDeliveryAreaFunctionalityAvailable() {
-		
+
 		//Present Customer with Functionality Options
-		
+
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -74,13 +76,13 @@ public class CommandLine {
 		System.out.println("99. Return to Previous Page");
 		System.out.println("=============================================");
 		System.out.println(" ");
-		
+
 	}
-	
+
 	private static void listOrdersFunctionalityAvailable() {
-		
+
 		//Present Customer with Functionality Options
-		
+
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -91,14 +93,30 @@ public class CommandLine {
 		System.out.println("99. Return to Previous Page");
 		System.out.println("=============================================");
 		System.out.println(" ");
-		
+
+	}
+	private static void listPublicationFunctionalityAvailable() {
+
+		//Present Customer with Functionality Options
+
+		System.out.println(" ");
+		System.out.println("=============================================");
+		System.out.println("Please choose ONE of the following options:");
+		System.out.println("1. Create New Publication");
+		System.out.println("2. View ALL Publications");
+		System.out.println("3. Update Publication by ID");
+		System.out.println("4. Delete Publication by ID");
+		System.out.println("99. Close the NewsAgent Application");
+		System.out.println("=============================================");
+		System.out.println(" ");
+
 	}
 
-	
+
 	private static boolean printCustomerTable(ResultSet rs) throws Exception {
-		
+
 		//Print The Contents of the Full Customer Table
-		
+
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 		System.out.println("Table: " + rs.getMetaData().getTableName(1));
 		for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
@@ -117,262 +135,431 @@ public class CommandLine {
 			System.out.println();
 		}// end while
 		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
-		
+
 		return true;
-		
+
+	}
+	private static boolean printPublicationTable(ResultSet rs) throws Exception {
+
+		//Print The Contents of the Full Publication Table
+
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("Table: " + rs.getMetaData().getTableName(1));
+		for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+			System.out.printf("%30s",rs.getMetaData().getColumnName(i));
+		}
+		System.out.println();
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("pubname");
+			String price = rs.getString("pubprice");
+			String quantity = rs.getString("pubquantity");
+			String frequency = rs.getString("pubfrequency");
+			System.out.printf("%30s", id);
+			System.out.printf("%30s", name);
+			System.out.printf("%30s", price);
+			System.out.printf("%30s", quantity);
+			System.out.printf("%30s", frequency);
+			System.out.println();
+		}// end while
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+
+		return true;
+
 	}
 
-    // Main method with logic to switch between menus
-    public static void main(String[] args) {
-    	
-    	try {
-	        // Configure System for Running
-	        Scanner keyboard = new Scanner(System.in);
-	        String functionNumber;
-	        boolean keepAppOpen = true;
-	
-	        // Keep showing the Main Menu until the user chooses to exit
-	        while (keepAppOpen) {
-	            listNewsAgentFunctionalityAvailable();  // Show Main Menu
-	            functionNumber = keyboard.nextLine();  // Take user input as a String
-	
-	            switch (functionNumber) {
-	
-	                case "1": // Customer Functionality
-	                    boolean customerMenuOpen = true;
-	                    while (customerMenuOpen) {
-	                        listCustomerFunctionalityAvailable(); // Show Customer Submenu
-	                        String customerChoice = keyboard.nextLine();  // Take user input
-	
-	                        switch (customerChoice) {
-	                            case "1":
-	                                System.out.println("Creating customer account");
-	                                System.out.println("Please enter Customer Name:");
-	                                String custName = keyboard.nextLine();
+	// Main method with logic to switch between menus
+	public static void main(String[] args) {
 
-	                                System.out.println("Please enter Customer Address:");
-	                                String custAddr = keyboard.nextLine();
+		try {
+			// Configure System for Running
+			Scanner keyboard = new Scanner(System.in);
+			String functionNumber;
+			boolean keepAppOpen = true;
 
-	                                System.out.println("Please enter Customer Phone Number:");
-	                                String custPhone = keyboard.nextLine();
+			// Keep showing the Main Menu until the user chooses to exit
+			while (keepAppOpen) {
+				listNewsAgentFunctionalityAvailable();  // Show Main Menu
+				functionNumber = keyboard.nextLine();  // Take user input as a String
 
-	                                try {
-	                                    // Create Customer object
-	                                    Customer newCustomer = new Customer(custName, custAddr, custPhone);
+				switch (functionNumber) {
 
-	                                    // Create MySQLAccess object and insert the customer
-	                                    MySQLAccess dbAccess = new MySQLAccess();
-	                                    boolean success = dbAccess.insertCustomerDetailsAccount(newCustomer);
+				case "1": // Customer Functionality
+					boolean customerMenuOpen = true;
+					while (customerMenuOpen) {
+						listCustomerFunctionalityAvailable(); // Show Customer Submenu
+						String customerChoice = keyboard.nextLine();  // Take user input
 
-	                                    if (success) {
-	                                        System.out.println("Customer created successfully.");
-	                                    } else {
-	                                        System.out.println("Failed to create customer.");
-	                                    }
-	                                } catch (Exception e) {
-	                                    System.out.println("Error: " + e.getMessage());
-	                                }
+						switch (customerChoice) {
+						case "1":
+							System.out.println("Creating customer account");
+							System.out.println("Please enter Customer Name:");
+							String custName = keyboard.nextLine();
 
-	                                break;
-	                            case "2":
-	                                System.out.println("Displaying Customer Records (Placeholder).");
-	                                System.out.println("Retrieving all customer records...");
+							System.out.println("Please enter Customer Address:");
+							String custAddr = keyboard.nextLine();
 
-	                                try {
-	                                    MySQLAccess dbAccess = new MySQLAccess();
-	                                    ResultSet resultSet = dbAccess.retrieveAllCustomerAccounts();
+							System.out.println("Please enter Customer Phone Number:");
+							String custPhone = keyboard.nextLine();
 
-	                                    if (resultSet != null) {
-	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-	                                        System.out.printf("%10s %30s %30s %30s%n", "ID", "Name", "Address", "Phone Number");
-	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+							try {
+								// Create Customer object
+								Customer newCustomer = new Customer(custName, custAddr, custPhone);
 
-	                                        // Iterate through the ResultSet and print each record
-	                                        while (resultSet.next()) {
-	                                            int id = resultSet.getInt("id");
-	                                            String name = resultSet.getString("name");
-	                                            String address = resultSet.getString("address");
-	                                            String phoneNumber = resultSet.getString("phoneNumber");
+								// Create MySQLAccess object and insert the customer
 
-	                                            System.out.printf("%10d %30s %30s %30s%n", id, name, address, phoneNumber);
-	                                        }
-	                                        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-	                                    } else {
-	                                        System.out.println("No customer records found.");
-	                                    }
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.insertCustomerDetailsAccount(newCustomer);
 
-	                                } catch (Exception e) {
-	                                    System.out.println("Error retrieving customer records: " + e.getMessage());
-	                                }
-	                                break;
-	                            case "3": // Update Customer Record by ID
-	                                System.out.println("Please enter the ID of the customer you wish to update:");
-	                                
-	                                try {
-	                                    int customerId = Integer.parseInt(keyboard.nextLine());  // Convert user input to an integer
+								if (success) {
+									System.out.println("Customer created successfully.");
+								} else {
+									System.out.println("Failed to create customer.");
+								}
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
 
-	                                    // Prompt the user for new details
-	                                    System.out.println("Enter new name:");
-	                                    String newName = keyboard.nextLine();
-	                                    System.out.println("Enter new address:");
-	                                    String newAddress = keyboard.nextLine();
-	                                    System.out.println("Enter new phone number:");
-	                                    String newPhoneNumber = keyboard.nextLine();
+							break;
+						case "2":
+							System.out.println("Displaying Customer Records (Placeholder).");
+							System.out.println("Retrieving all customer records...");
 
-	                                    // Create MySQLAccess object and update the customer
-	                                    MySQLAccess dbAccess = new MySQLAccess();
-	                                    boolean success = dbAccess.updateCustomerDetailsById(customerId, newName, newAddress, newPhoneNumber);
+							try {
+								MySQLAccess dbAccess = new MySQLAccess();
+								ResultSet resultSet = dbAccess.retrieveAllCustomerAccounts();
 
-	                                    if (success) {
-	                                        System.out.println("Customer with ID " + customerId + " was updated successfully.");
-	                                    } else {
-	                                        System.out.println("No customer found with ID " + customerId + ".");
-	                                    }
+								if (resultSet != null) {
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+									System.out.printf("%10s %30s %30s %30s%n", "ID", "Name", "Address", "Phone Number");
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
-	                                } catch (NumberFormatException e) {
-	                                    System.out.println("Invalid input. Please enter a numeric ID.");
-	                                } catch (Exception e) {
-	                                    System.out.println("Error updating customer record: " + e.getMessage());
-	                                }
-	                                break;
-	                            case "4":
-	                                System.out.println("Please enter the ID of the customer you wish to delete (-99 to delete all):");
-	                                int customerId;
-	                                
-	                                try {
-	                                    customerId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+									// Iterate through the ResultSet and print each record
+									while (resultSet.next()) {
+										int id = resultSet.getInt("id");
+										String name = resultSet.getString("name");
+										String address = resultSet.getString("address");
+										String phoneNumber = resultSet.getString("phoneNumber");
 
-	                                    MySQLAccess dbAccess = new MySQLAccess();
-	                                    boolean success = dbAccess.deleteCustomerById(customerId);
+										System.out.printf("%10d %30s %30s %30s%n", id, name, address, phoneNumber);
+									}
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+								} else {
+									System.out.println("No customer records found.");
+								}
 
-	                                    if (success) {
-	                                    	if (customerId == -99) {
-	                                    		System.out.println("All customer records were deleted successfully.");
-	                                    	} else {
-	                                    		System.out.println("Customer with ID " + customerId + " was deleted successfully.");
-	                                    	}
-	                                    } else {
-	                                        System.out.println("No customer found with ID " + customerId + ".");
-	                                    }
+							} catch (Exception e) {
+								System.out.println("Error retrieving customer records: " + e.getMessage());
+							}
+							break;
+						case "3": // Update Customer Record by ID
+							System.out.println("Please enter the ID of the customer you wish to update:");
 
-	                                } catch (NumberFormatException e) {
-	                                    System.out.println("Invalid input. Please enter a numeric ID.");
-	                                } catch (Exception e) {
-	                                    System.out.println("Error deleting customer record: " + e.getMessage());
-	                                }
-	                                break;
-	                            case "99":
-	                                customerMenuOpen = false;  // Return to Main Menu
-	                                break;
-	                            default:
-	                                System.out.println("No valid option selected.");
-	                        }
-	                    }
-	                    break;
-	
-	                case "2": // Delivery Area Functionality
-	                    boolean areaMenuOpen = true;
-	                    while (areaMenuOpen) {
-	                        listDeliveryAreaFunctionalityAvailable(); // Show Delivery Area Submenu
-	                        String areaChoice = keyboard.nextLine();  // Take user input
-	
-	                        switch (areaChoice) {
-	                            case "1":
-	                                System.out.println("Delivery Area Created (Placeholder).");
-	                                break;
-	                            case "2":
-	                                System.out.println("Displaying Delivery Areas (Placeholder).");
-	                                break;
-	                            case "3":
-	                                System.out.println("Delivery Area Updated (Placeholder).");
-	                                break;
-	                            case "4":
-	                                System.out.println("Delivery Area Deleted (Placeholder).");
-	                                break;
-	                            case "99":
-	                                areaMenuOpen = false;  // Return to Main Menu
-	                                break;
-	                            default:
-	                                System.out.println("No valid option selected.");
-	                        }
-	                    }
-	                    break;
-	
-	                case "3": // Delivery Docket Functionality
-	                    boolean docketMenuOpen = true;
-	                    while (docketMenuOpen) {
-	                        listDeliveryDocketFunctionalityAvailable(); // Show Delivery Docket Submenu
-	                        String docketChoice = keyboard.nextLine();  // Take user input
-	
-	                        switch (docketChoice) {
-	                            case "1":
-	                                System.out.println("Delivery Docket Created (Placeholder).");
-	                                break;
-	                            case "2":
-	                                System.out.println("Displaying Today's Docket (Placeholder).");
-	                                break;
-	                            case "3":
-	                                System.out.println("Delivery Docket Updated (Placeholder).");
-	                                break;
-	                            case "4":
-	                                System.out.println("Delivery Docket Deleted (Placeholder).");
-	                                break;
-	                            case "99":
-	                                docketMenuOpen = false;  // Return to Main Menu
-	                                break;
-	                            default:
-	                                System.out.println("No valid option selected.");
-	                        }
-	                    }
-	                    break;
-	                    
-	                case "4": // Orders Functionality
-	                    boolean orderMenuOpen = true;
-	                    while (orderMenuOpen) {
-	                    	listOrdersFunctionalityAvailable(); // Show Orders Submenu
-	                        String orderChoice = keyboard.nextLine();  // Take user input
-	
-	                        switch (orderChoice) {
-	                            case "1":
-	                                System.out.println("Order Created (Placeholder).");
-	                                break;
-	                            case "2":
-	                                System.out.println("Displaying Today's Order (Placeholder).");
-	                                break;
-	                            case "3":
-	                                System.out.println("Order Updated (Placeholder).");
-	                                break;
-	                            case "4":
-	                                System.out.println("Order Deleted (Placeholder).");
-	                                break;
-	                            case "99":
-	                            	orderMenuOpen = false;  // Return to Main Menu
-	                                break;
-	                            default:
-	                                System.out.println("No valid option selected.");
-	                        }
-	                    }
-	                    break;
-	
-	                case "99":
-	                    keepAppOpen = false;
-	                    System.out.println("Closing the Application");
-	                    break;
-	
-	                default:
-	                    System.out.println("No Valid Function Selected");
-	                    break;
-	            } // end switch
-	
-	        } // end while
-	
-	        // Tidy up Resources
-	        keyboard.close();
-    	} catch (Exception e) {
+							try {
+								int customerId = Integer.parseInt(keyboard.nextLine());  // Convert user input to an integer
+
+								// Prompt the user for new details
+								System.out.println("Enter new name:");
+								String newName = keyboard.nextLine();
+								System.out.println("Enter new address:");
+								String newAddress = keyboard.nextLine();
+								System.out.println("Enter new phone number:");
+								String newPhoneNumber = keyboard.nextLine();
+
+								// Create MySQLAccess object and update the customer
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.updateCustomerDetailsById(customerId, newName, newAddress, newPhoneNumber);
+
+								if (success) {
+									System.out.println("Customer with ID " + customerId + " was updated successfully.");
+								} else {
+									System.out.println("No customer found with ID " + customerId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error updating customer record: " + e.getMessage());
+							}
+							break;
+						case "4":
+							System.out.println("Please enter the ID of the customer you wish to delete (-99 to delete all):");
+							int customerId;
+
+							try {
+								customerId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.deleteCustomerById(customerId);
+
+								if (success) {
+									if (customerId == -99) {
+										System.out.println("All customer records were deleted successfully.");
+									} else {
+										System.out.println("Customer with ID " + customerId + " was deleted successfully.");
+									}
+								} else {
+									System.out.println("No customer found with ID " + customerId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error deleting customer record: " + e.getMessage());
+							}
+							break;
+						case "99":
+							customerMenuOpen = false;  // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				case "2": // Delivery Area Functionality
+					boolean areaMenuOpen = true;
+					while (areaMenuOpen) {
+						listDeliveryAreaFunctionalityAvailable(); // Show Delivery Area Submenu
+						String areaChoice = keyboard.nextLine();  // Take user input
+
+						switch (areaChoice) {
+						case "1":
+							System.out.println("Delivery Area Created (Placeholder).");
+							break;
+						case "2":
+							System.out.println("Displaying Delivery Areas (Placeholder).");
+							break;
+						case "3":
+							System.out.println("Delivery Area Updated (Placeholder).");
+							break;
+						case "4":
+							System.out.println("Delivery Area Deleted (Placeholder).");
+							break;
+						case "99":
+							areaMenuOpen = false;  // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				case "3": // Delivery Docket Functionality
+					boolean docketMenuOpen = true;
+					while (docketMenuOpen) {
+						listDeliveryDocketFunctionalityAvailable(); // Show Delivery Docket Submenu
+						String docketChoice = keyboard.nextLine();  // Take user input
+
+						switch (docketChoice) {
+						case "1":
+							System.out.println("Delivery Docket Created (Placeholder).");
+							break;
+						case "2":
+							System.out.println("Displaying Today's Docket (Placeholder).");
+							break;
+						case "3":
+							System.out.println("Delivery Docket Updated (Placeholder).");
+							break;
+						case "4":
+							System.out.println("Delivery Docket Deleted (Placeholder).");
+							break;
+						case "99":
+							docketMenuOpen = false;  // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				case "4": // Orders Functionality
+					boolean orderMenuOpen = true;
+					while (orderMenuOpen) {
+						listOrdersFunctionalityAvailable(); // Show Orders Submenu
+						String orderChoice = keyboard.nextLine();  // Take user input
+
+						switch (orderChoice) {
+						case "1":
+							System.out.println("Order Created (Placeholder).");
+							break;
+						case "2":
+							System.out.println("Displaying Today's Order (Placeholder).");
+							break;
+						case "3":
+							System.out.println("Order Updated (Placeholder).");
+							break;
+						case "4":
+							System.out.println("Order Deleted (Placeholder).");
+							break;
+						case "99":
+							orderMenuOpen = false;  // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				case "5": // Publication Functionality
+					boolean publicationMenuOpen = true;
+					while (publicationMenuOpen) {
+						listPublicationFunctionalityAvailable(); // Show Publication Submenu
+						String publicationChoice = keyboard.nextLine();  // Take user input
+
+						switch (publicationChoice) {
+						case "1":
+							System.out.println("Creating new Publication");
+							System.out.println("Please enter Publication Name:");
+							String pubName = keyboard.nextLine();
+
+							System.out.println("Please enter Publication price:");
+							String pubPrice = keyboard.nextLine();
+
+							System.out.println("Please enter Publication quantity:");
+							String pubQuantity = keyboard.nextLine();
+							
+							System.out.println("Please enter Publication Frequency:");
+							String pubFrequency = keyboard.nextLine();
+
+							try {
+								// Create Customer object
+								Publication newPublication = new Publication(pubName, pubPrice, pubQuantity, pubFrequency);
+
+								// Create MySQLAccess object and insert the customer
+
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.insertPublicationDetailsAccount(newPublication);
+
+								if (success) {
+									System.out.println("Publication created successfully.");
+								} else {
+									System.out.println("Failed to create Publication.");
+								}
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
+
+							break;
+						case "2":
+							System.out.println("Displaying Publication Records (Placeholder).");
+							System.out.println("Retrieving all publication records...");
+
+							try {
+								MySQLAccess dbAccess = new MySQLAccess();
+								
+								ResultSet resultSet = dbAccess.retrieveAllPublications();
+
+								if (resultSet != null) {
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+									System.out.printf("%10s %20s %20s %30s %20s %n", "ID", "Name", "Price", "Quantity","Frequency");
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+
+									// Iterate through the ResultSet and print each record
+									while (resultSet.next()) {
+										int id = resultSet.getInt("id");
+										String name = resultSet.getString("name");
+										String price = resultSet.getString("price");
+										String quantity = resultSet.getString("quantity");
+										String frequency = resultSet.getString("frequency");
+
+										System.out.printf("%10d  %20s %20s %30s %20s %n", id, name, price, quantity, frequency);
+									}
+									System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+								} else {
+									System.out.println("No Publications found.");
+								}
+
+							} catch (Exception e) {
+								System.out.println("Error retrieving Publications: " + e.getMessage());
+							}
+							break;
+						case "3": // Update Customer Record by ID
+							System.out.println("Please enter the ID of the publicatoin you wish to update:");
+
+							try {
+								int publicationId = Integer.parseInt(keyboard.nextLine());  // Convert user input to an integer
+
+								// Prompt the user for new details
+								System.out.println("Enter new name:");
+								String newName = keyboard.nextLine();
+								System.out.println("Enter new price:");
+								String newPrice = keyboard.nextLine();
+								System.out.println("Enter new quantity:");
+								String newQuantity = keyboard.nextLine();
+								System.out.println("Enter new frequency:");
+								String newFrequency = keyboard.nextLine();
+								// Create MySQLAccess object and update the publication
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.updatePublicationDetailsById(publicationId, newName, newPrice, newQuantity, newFrequency);
+
+								if (success) {
+									System.out.println("Publication with ID " + publicationId + " was updated successfully.");
+								} else {
+									System.out.println("No publication found with ID " + publicationId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error updating publication: " + e.getMessage());
+							}
+							break;
+						case "4":
+							System.out.println("Please enter the ID of the publication you wish to delete (-99 to delete all):");
+							int publicationId;
+
+							try {
+								publicationId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+
+								MySQLAccess dbAccess = new MySQLAccess();
+								boolean success = dbAccess.deletePublicationById(publicationId);
+
+								if (success) {
+									if (publicationId == -99) {
+										System.out.println("All publication records were deleted successfully.");
+									} else {
+										System.out.println("Publication with ID " + publicationId + " was deleted successfully.");
+									}
+								} else {
+									System.out.println("No publication found with ID " + publicationId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error deleting publication record: " + e.getMessage());
+							}
+							break;
+						case "99":
+							publicationMenuOpen = false;  // Return to Main Menu
+							break;
+						default:
+							System.out.println("No valid option selected.");
+						}
+					}
+					break;
+
+				
+				case "99":
+					keepAppOpen = false;
+					System.out.println("Closing the Application");
+					break;
+
+				default:
+					System.out.println("No Valid Function Selected");
+					break;
+				} // end switch
+
+			} // end while
+
+			// Tidy up Resources
+			keyboard.close();
+		} catch (Exception e) {
 			System.out.println("PROGRAM TERMINATED - ERROR MESSAGE:" + e.getMessage());
 		} // end try-catch
 
-    } // end main
-	
-	
+	} // end main
+
+
 }

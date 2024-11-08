@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import customerPackage.Customer;
+import publicationPackage.Publication;
 
 import java.sql.ResultSet;
 
@@ -17,9 +18,9 @@ public class MySQLAccess {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	final private String host ="localhost:3306";
+	final private String host ="localhost:3306";//"localhost:3307"
 	final private String user = "root";
-	final private String password = "admin";
+	final private String password = "";
 	
 	
 	public MySQLAccess() throws Exception {
@@ -30,6 +31,7 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//Setup the connection with the DB
+			//connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
 			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
@@ -58,6 +60,8 @@ public class MySQLAccess {
 		}
 		catch (Exception e) {
 			insertSucessfull = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
 		}
 	
 		return insertSucessfull;
@@ -156,6 +160,103 @@ public class MySQLAccess {
 		return deleteSucessfull;
 		
 	}
+	//////////////////////////////Publication Zone////////////////////////////////////////////
+	public boolean insertPublicationDetailsAccount(Publication p) {
+		
+		boolean insertSucessfull = true;
+	
+		//Add Code here to call embedded SQL to insert Customer into DB
+	
+		try {
+		
+			//Create prepared statement to issue SQL query to the database
+			preparedStatement = connect.prepareStatement("insert into newsagentApp.publication values (default, ?, ?, ?, ?)");
+			preparedStatement.setString(1, p.getName());
+			preparedStatement.setString(2, p.getPrice());
+			preparedStatement.setString(3, p.getQuantity());
+			preparedStatement.setString(4, p.getFrequency());
+			preparedStatement.executeUpdate();
+		
+	 
+		}
+		catch (Exception e) {
+			insertSucessfull = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+	
+		return insertSucessfull;
+		
+	}// end insertPublicationDetails
+	
+	public boolean updatePublicationDetailsById(int pubId, String newName, String newPrice, String newQuantity, String newFrequency) {
+		
+		boolean insertSucessfull = true;
+	
+		//Add Code here to call embedded SQL to update Publication
+	
+		try {
+		
+			//Create prepared statement to issue SQL query to the database
+			preparedStatement = connect.prepareStatement("update newsagentApp.publication SET name = ?, price = ?, quantity = ?, frequency = ? WHERE id = ?");
+			preparedStatement.setString(1, newName);
+			preparedStatement.setString(2, newPrice);
+			preparedStatement.setString(3, newQuantity);
+			preparedStatement.setString(4, newFrequency);
+			preparedStatement.setInt(5, pubId);
+			preparedStatement.executeUpdate();
+		
+	 
+		}
+		catch (Exception e) {
+			insertSucessfull = false;
+		}
+	
+		return insertSucessfull;
+		
+	}// end updateCustomerDetailsById
+
+	public ResultSet retrieveAllPublications() {
+		
+		//Add Code here to call embedded SQL to view Publications Details
+	
+		try {
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("Select * from newsagentApp.publication");
+		
+		}
+		catch (Exception e) {
+			resultSet = null;
+		}
+		return resultSet;
+	}
+	
+	public boolean deletePublicationById(int pubID) {
+
+		boolean deleteSucessfull = true;
+		
+		//Add Code here to call embedded SQL to insert Publication into DB
+		
+		try {
+			
+			//Create prepared statement to issue SQL query to the database
+			if (pubID == -99)
+				//Delete all entries in Table
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.publication");
+			else
+				//Delete a particular Customer
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.publication where id = " + pubID);
+			preparedStatement.executeUpdate();
+		 
+		}
+		catch (Exception e) {
+			deleteSucessfull = false;
+		}
+		
+		return deleteSucessfull;
+		
+	}
+	
 
 
 }// end Class

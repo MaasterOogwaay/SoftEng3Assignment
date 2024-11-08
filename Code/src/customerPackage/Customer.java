@@ -74,7 +74,7 @@ public class Customer {
 		else if (custName.length() < 2)
 			throw new ExceptionHandler("Customer Name does not meet minimum length requirements");
 		else if (custName.length() > 50)
-			throw new ExceptionHandler("Customer Name does not exceeds maximum length requirements");
+			throw new ExceptionHandler("Customer Name exceeds maximum length requirements");
 		
 	}
 	
@@ -88,7 +88,7 @@ public class Customer {
 		else if (custAddr.length() < 5)
 			throw new ExceptionHandler("Customer Address does not meet minimum length requirements");
 		else if (custAddr.length() > 60)
-			throw new ExceptionHandler("Customer Address does not exceeds maximum length requirements");
+			throw new ExceptionHandler("Customer Address exceeds maximum length requirements");
 		
 	}
 	
