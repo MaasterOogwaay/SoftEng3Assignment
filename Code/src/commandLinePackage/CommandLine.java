@@ -431,29 +431,278 @@ public class CommandLine {
 						listOrdersFunctionalityAvailable(); // Show Orders Submenu
 						String orderChoice = keyboard.nextLine(); // Take user input
 
-						switch (orderChoice) {
-						case "1":
-							System.out.println("Order Created (Placeholder).");
-							break;
-						case "2":
-							System.out.println("Displaying Today's Order (Placeholder).");
-							break;
-						case "3":
-							System.out.println("Order Updated (Placeholder).");
-							break;
-						case "4":
-							System.out.println("Order Deleted (Placeholder).");
-							break;
-						case "99":
-							orderMenuOpen = false; // Return to Main Menu
-							break;
-						default:
-							System.out.println("No valid option selected.");
-						}
-					}
-					break;
+						 switch (orderChoice) {
+			                case "1": // Create Order
+			                    System.out.println("Creating new Order");
+			                    System.out.println("Please enter Order Price:");
+			                    double orderPrice = Double.parseDouble(keyboard.nextLine());
 
-				case "5": // Publication Functionality
+			                    System.out.println("Please enter Order Type:");
+			                    String orderType = keyboard.nextLine();
+
+			                    System.out.println("Please enter Customer Name:");
+			                    String customerName = keyboard.nextLine();
+
+			                    System.out.println("Please enter Customer Address:");
+			                    String customerAddress = keyboard.nextLine();
+
+			                    System.out.println("Please enter Customer Phone Number:");
+			                    String customerPhone = keyboard.nextLine();
+
+			                    try {
+			                        // Create Customer object
+			                        Customer customer = new Customer(customerName, customerAddress, customerPhone);
+
+			                        // Create Order object
+			                        Order newOrder = new Order(orderPrice, orderType, customer);
+
+			                        // Create MySQLAccess object and insert the order
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        boolean success = dbAccess.insertOrderDetails(newOrder);
+
+			                        if (success) {
+			                            System.out.println("Order created successfully.");
+			                        } else {
+			                            System.out.println("Failed to create Order.");
+			                        }
+			                    } catch (ExceptionHandler e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "2": // Display Order
+			                    System.out.println("Please enter Order ID to display:");
+			                    int orderIdToDisplay = Integer.parseInt(keyboard.nextLine());
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        Order retrievedOrder = dbAccess.getOrderById(orderIdToDisplay);
+
+			                        if (retrievedOrder != null) {
+			                            System.out.println("Order Details:");
+			                            System.out.println("Order ID: " + retrievedOrder.getId());
+			                            System.out.println("Order Price: " + retrievedOrder.getOrderPrice());
+			                            System.out.println("Order Type: " + retrievedOrder.getOrderType());
+			                            System.out.println("Customer Name: " + retrievedOrder.getCustomerDetails().getName());
+			                            System.out.println("Order Date: " + retrievedOrder.getOrderDate());
+			                        } else {
+			                            System.out.println("Order not found.");
+			                        }
+			                    } catch (ExceptionHandler e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "3": // Update Order
+			                    System.out.println("Please enter Order ID to update:");
+			                    int orderIdToUpdate = Integer.parseInt(keyboard.nextLine());
+
+			                    System.out.println("Please enter new Order Price:");
+			                    double newOrderPrice = Double.parseDouble(keyboard.nextLine());
+
+			                    System.out.println("Please enter new Order Type:");
+			                    String newOrderType = keyboard.nextLine();
+
+			                    System.out.println("Please enter new Customer Name:");
+			                    String newCustomerName = keyboard.nextLine();
+
+			                    System.out.println("Please enter new Customer Address:");
+			                    String newCustomerAddress = keyboard.nextLine();
+
+			                    System.out.println("Please enter new Customer Phone Number:");
+			                    String newCustomerPhone = keyboard.nextLine();
+
+			                    try {
+			                        Customer newCustomer = new Customer(newCustomerName, newCustomerAddress, newCustomerPhone);
+
+			                        // Create updated Order object with new details
+			                        Order updatedOrder = new Order(newOrderPrice, newOrderType, newCustomer);
+			                        updatedOrder.setId(orderIdToUpdate);
+
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        boolean success = dbAccess.updateOrderDetails(updatedOrder);
+
+			                        if (success) {
+			                            System.out.println("Order updated successfully.");
+			                        } else {
+			                            System.out.println("Failed to update Order.");
+			                        }
+			                    } catch (ExceptionHandler e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "4": // Delete Order
+			                    System.out.println("Please enter Order ID to delete:");
+			                    int orderIdToDelete = Integer.parseInt(keyboard.nextLine());
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        boolean success = dbAccess.deleteOrderById(orderIdToDelete);
+
+			                        if (success) {
+			                            System.out.println("Order deleted successfully.");
+			                        } else {
+			                            System.out.println("Failed to delete Order.");
+			                        }
+			                    } catch (ExceptionHandler e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "99": // Return to Main Menu
+			                    orderMenuOpen = false;
+			                    break;
+
+			                default:
+			                    System.out.println("No valid option selected.");
+			            }
+			        }
+
+			        boolean invoiceMenuOpen = true;
+			        while (invoiceMenuOpen) {
+			            listInvoiceFunctionalityAvailable(); // Show Invoice Submenu
+			            String invoiceChoice = keyboard.nextLine(); // Take user input
+
+			            switch (invoiceChoice) {
+			                case "1": // Create Invoice
+			                    System.out.println("Creating new Invoice");
+			                    System.out.println("Please enter Invoice Amount:");
+			                    double invoiceAmount = Double.parseDouble(keyboard.nextLine());
+
+			                    System.out.println("Please enter Customer ID:");
+			                    int customerId = Integer.parseInt(keyboard.nextLine());
+
+			                    System.out.println("Please enter Billing Date:");
+			                    String billingDate = keyboard.nextLine();
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        Customer customer = dbAccess.getCustomerById(customerId);
+
+			                        if (customer != null) {
+			                            Invoice newInvoice = new Invoice(0, invoiceAmount, customer, billingDate);
+			                            boolean success = dbAccess.insertInvoiceDetails(newInvoice);
+
+			                            if (success) {
+			                                System.out.println("Invoice created successfully.");
+			                            } else {
+			                                System.out.println("Failed to create invoice.");
+			                            }
+			                        } else {
+			                            System.out.println("Customer not found with ID: " + customerId);
+			                        }
+			                    } catch (Exception e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "2": // Read Invoice
+			                    System.out.println("Please enter Invoice ID to display:");
+			                    int invoiceIdToDisplay = Integer.parseInt(keyboard.nextLine());
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        Invoice retrievedInvoice = dbAccess.getInvoiceById(invoiceIdToDisplay);
+
+			                        if (retrievedInvoice != null) {
+			                            System.out.println("Invoice Details:");
+			                            System.out.println("Invoice ID: " + retrievedInvoice.getId());
+			                            System.out.println("Amount: " + retrievedInvoice.getAmount());
+			                            System.out.println("Customer Name: " + retrievedInvoice.getCustomer().getName());
+			                            System.out.println("Billing Date: " + retrievedInvoice.getBillingDate());
+			                        } else {
+			                            System.out.println("Invoice not found.");
+			                        }
+			                    } catch (Exception e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "3": // Update Invoice
+			                    System.out.println("Please enter Invoice ID to update:");
+			                    int invoiceIdToUpdate = Integer.parseInt(keyboard.nextLine());
+
+			                    System.out.println("Please enter new Invoice Amount:");
+			                    double newInvoiceAmount = Double.parseDouble(keyboard.nextLine());
+
+			                    System.out.println("Please enter new Customer ID:");
+			                    int newCustomerId = Integer.parseInt(keyboard.nextLine());
+
+			                    System.out.println("Please enter new Billing Date:");
+			                    String newBillingDate = keyboard.nextLine();
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        Customer newCustomer = dbAccess.getCustomerById(newCustomerId);
+
+			                        if (newCustomer != null) {
+			                            Invoice updatedInvoice = new Invoice(invoiceIdToUpdate, newInvoiceAmount, newCustomer, newBillingDate);
+			                            boolean success = dbAccess.updateInvoiceDetails(updatedInvoice);
+
+			                            if (success) {
+			                                System.out.println("Invoice updated successfully.");
+			                            } else {
+			                                System.out.println("Failed to update invoice.");
+			                            }
+			                        } else {
+			                            System.out.println("Customer not found with ID: " + newCustomerId);
+			                        }
+			                    } catch (Exception e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "4": // Delete Invoice
+			                    System.out.println("Please enter Invoice ID to delete:");
+			                    int invoiceIdToDelete = Integer.parseInt(keyboard.nextLine());
+
+			                    try {
+			                        MySQLAccess dbAccess = new MySQLAccess();
+			                        boolean success = dbAccess.deleteInvoiceById(invoiceIdToDelete);
+
+			                        if (success) {
+			                            System.out.println("Invoice deleted successfully.");
+			                        } else {
+			                            System.out.println("Failed to delete invoice.");
+			                        }
+			                    } catch (Exception e) {
+			                        System.out.println("Error: " + e.getMessage());
+			                    }
+			                    break;
+
+			                case "99": // Return to Main Menu
+			                    invoiceMenuOpen = false;
+			                    break;
+
+			                default:
+			                    System.out.println("No valid option selected.");
+			            }
+			        }
+			    }
+
+			    private static void listOrdersFunctionalityAvailable() {
+			        System.out.println("\nOrders Functionality:");
+			        System.out.println("1. Create Order");
+			        System.out.println("2. Display Order");
+			        System.out.println("3. Update Order");
+			        System.out.println("4. Delete Order");
+			        System.out.println("99. Return to Previous Page");
+			        System.out.print("Please select an option: ");
+			    }
+
+			    private static void listInvoiceFunctionalityAvailable() {
+			        System.out.println("\nInvoice Functionality:");
+			        System.out.println("1. Create Invoice");
+			        System.out.println("2. Display Invoice");
+			        System.out.println("3. Update Invoice");
+			        System.out.println("4. Delete Invoice");
+			        System.out.println("99. Return to Previous Page");
+			        System.out.print("Please select an option: ");
+			    }
+			}
+
+				case "6": // Publication Functionality
 					boolean publicationMenuOpen = true;
 					while (publicationMenuOpen) {
 						listPublicationFunctionalityAvailable(); // Show Customer Submenu

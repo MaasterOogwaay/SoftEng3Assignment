@@ -289,7 +289,205 @@ public class MySQLAccess {
 		return deleteSucessfull;
 		
 	}
-	
+//////////////////////////////Orders/Invoices Zone////////////////////////////////////////////
+	// Create - Insert Order Details
+    public boolean insertOrderDetails(Order o) {
+        boolean insertSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.orders VALUES (default, ?, ?, ?, ?)");
+            preparedStatement.setDouble(1, o.getOrderPrice());
+            preparedStatement.setString(2, o.getOrderType());
+            preparedStatement.setString(3, o.getCustomerDetails().getName());
+            preparedStatement.setString(4, o.getOrderDate().toString());
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            insertSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return insertSuccessful;
+    }
+
+    // Read - Get Order by ID
+    public Order getOrderById(int orderId) {
+        Order order = null;
+
+        try {
+            preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.orders WHERE id = ?");
+            preparedStatement.setInt(1, orderId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                double price = resultSet.getDouble("price");
+                String type = resultSet.getString("type");
+                String customerName = resultSet.getString("customer_name");
+                String customerAddress = resultSet.getString("customer_address");
+                String customerPhone = resultSet.getString("customer_phone");
+                Date orderDate = resultSet.getDate("order_date");
+
+                Customer customer = new Customer(customerName, customerAddress, customerPhone);
+                order = new Order(price, type, customer);
+                order.setId(orderId);
+                order.setDate(orderDate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return order;
+    }
+
+    // Read - Retrieve All Orders
+    public ResultSet retrieveAllOrders() {
+        try {
+            preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.orders");
+            resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
+            resultSet = null;
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    // Update - Update Order Details by ID
+    public boolean updateOrderDetailsById(int orderId, double newPrice, String newType, Customer newCustomer, Date newDate) {
+        boolean updateSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("UPDATE newsagentApp.orders SET price = ?, type = ?, customer_name = ?, customer_address = ?, customer_phone = ?, order_date = ? WHERE id = ?");
+            preparedStatement.setDouble(1, newPrice);
+            preparedStatement.setString(2, newType);
+            preparedStatement.setString(3, newCustomer.getName());
+            preparedStatement.setString(4, newCustomer.getAddress());
+            preparedStatement.setString(5, newCustomer.getPhoneNumber());
+            preparedStatement.setString(6, newDate.toString());
+            preparedStatement.setInt(7, orderId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            updateSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return updateSuccessful;
+    }
+
+    // Delete - Delete Order by ID
+    public boolean deleteOrderById(int orderId) {
+        boolean deleteSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.orders WHERE id = ?");
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            deleteSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return deleteSuccessful;
+    }
+
+    // Create - Insert Invoice Details
+    public boolean insertInvoiceDetails(Invoice i) {
+        boolean insertSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.invoices VALUES (default, ?, ?, ?, ?)");
+            preparedStatement.setDouble(1, i.getAmount());
+            preparedStatement.setString(2, i.getCustomer().getName());
+            preparedStatement.setString(3, i.getCustomer().getAddress());
+            preparedStatement.setString(4, i.getBillingDate());
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            insertSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return insertSuccessful;
+    }
+
+    // Read - Get Invoice by ID
+    public Invoice getInvoiceById(int invoiceId) {
+        Invoice invoice = null;
+
+        try {
+            preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.invoices WHERE id = ?");
+            preparedStatement.setInt(1, invoiceId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                double amount = resultSet.getDouble("amount");
+                String customerName = resultSet.getString("customer_name");
+                String customerAddress = resultSet.getString("customer_address");
+                String billingDate = resultSet.getString("billing_date");
+
+                Customer customer = new Customer(customerName, customerAddress, resultSet.getString("customer_phone"));
+                invoice = new Invoice(invoiceId, amount, customer, billingDate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return invoice;
+    }
+
+    // Read - Retrieve All Invoices
+    public ResultSet retrieveAllInvoices() {
+        try {
+            preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.invoices");
+            resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
+            resultSet = null;
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    // Update - Update Invoice Details by ID
+    public boolean updateInvoiceDetailsById(int invoiceId, double newAmount, Customer newCustomer, String newBillingDate) {
+        boolean updateSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("UPDATE newsagentApp.invoices SET amount = ?, customer_name = ?, customer_address = ?, billing_date = ? WHERE id = ?");
+            preparedStatement.setDouble(1, newAmount);
+            preparedStatement.setString(2, newCustomer.getName());
+            preparedStatement.setString(3, newCustomer.getAddress());
+            preparedStatement.setString(4, newBillingDate);
+            preparedStatement.setInt(5, invoiceId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            updateSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return updateSuccessful;
+    }
+
+    // Delete - Delete Invoice by ID
+    public boolean deleteInvoiceById(int invoiceId) {
+        boolean deleteSuccessful = true;
+
+        try {
+            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.invoices WHERE id = ?");
+            preparedStatement.setInt(1, invoiceId);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            deleteSuccessful = false;
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+
+        return deleteSuccessful;
+    }
+}
 	//////////////////////////////Warnings/DeliveryPerson Zone////////////////////////////////////////////
 
 	public boolean insertDeliveryPersonDetails(DeliveryPerson d) {
