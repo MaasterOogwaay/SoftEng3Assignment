@@ -1,46 +1,37 @@
 package warningsPackage;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
 
 class WarningsTester {
 
-    // Test #: 1
-    // Test Objective: Issue a warning to a customer for overdue payment
-    // Inputs: Select customer, enter warning details (date, reason, status)
-    // Expected Output: Warning issued successfully with a unique ID, customer notified.
     @Test
     void testIssueWarning001() {
         try {
             // Create a warning object with valid details
-            Warnings warning = new Warnings("W001", "Overdue Payment", "Active", "D001", "2024-10-18");
+            Warnings warning = new Warnings("W001", "Overdue Payment", "Active", "D001", ("2024-10-18"));
 
             // Use getters to verify details
             assertEquals("W001", warning.getWarningId());
             assertEquals("Overdue Payment", warning.getWarningReason());
             assertEquals("Active", warning.getWarningStatus());
             assertEquals("D001", warning.getDeliveryPersonId());
-            assertEquals("2024-10-18", warning.getDateIssued());
+            assertEquals(LocalDate.parse("2024-10-18"), warning.getDateIssued());
         } catch (Exception e) {
             fail("Exception not expected");
         }
     }
 
-    // Test #: 2
-    // Test Objective: View warnings for a specific customer
-    // Inputs: Select customer from the system
-    // Expected Output: List of warnings displayed with date, reason, and status.
     @Test
     void testViewWarningsForCustomer002() {
         try {
-            // Create multiple warnings for a customer
-            Warnings warning1 = new Warnings("W001", "Late Payment", "Active", "D001", "2024-10-10");
-            Warnings warning2 = new Warnings("W002", "Missed Delivery", "Resolved", "D001", "2024-10-12");
+            Warnings warning1 = new Warnings("W001", "Late Payment", "Active", "D001", ("2024-10-10"));
+            Warnings warning2 = new Warnings("W002", "Missed Delivery", "Resolved", "D001",("2024-10-12"));
 
-            // Print warning details (this would be displayed in a real system)
-            Warnings.printWarning(warning1);
-            Warnings.printWarning(warning2);
+            // Print warning details
+            warning1.printWarning(warning1);
+            warning2.printWarning(warning2);
 
             // Use assertions to verify warning details
             assertEquals("W001", warning1.getWarningId());
@@ -55,23 +46,16 @@ class WarningsTester {
         }
     }
 
-    // Test #: 3
-    // Test Objective: Filter warnings by status (active/resolved)
-    // Inputs: Apply filter (e.g., view only active warnings)
-    // Expected Output: Warnings filtered successfully based on the selected status.
     @Test
     void testFilterWarningsByStatus003() {
         try {
-            // Create warnings
             Warnings warning1 = new Warnings("W001", "Late Payment", "Active", "D001", "2024-10-10");
-            Warnings warning2 = new Warnings("W002", "Missed Delivery", "Resolved", "D001", "2024-10-12");
+            Warnings warning2 = new Warnings("W002", "Missed Delivery", "Resolved", "D001", ("2024-10-12"));
 
-            // Assume a filter function to view active warnings (pseudo-filter in real-world code)
             if (warning1.getWarningStatus().equals("Active")) {
-                Warnings.printWarning(warning1);
+                warning1.printWarning(warning1);
             }
 
-            // Verify that only active warnings are displayed
             assertEquals("Active", warning1.getWarningStatus());
         } catch (Exception e) {
             fail("Exception not expected");
@@ -86,7 +70,7 @@ class WarningsTester {
     void testMarkWarningAsResolved004() {
         try {
             // Create a warning with an "Active" status
-            Warnings warning = new Warnings("W001", "Late Payment", "Active", "D001", "2024-10-10");
+            Warnings warning = new Warnings(null, null, null, null, null);
 
             // Update the status to "Resolved"
             warning.updateWarningStatus("Resolved");
@@ -106,10 +90,10 @@ class WarningsTester {
     void testRemoveWarning005() {
         try {
             // Create a warning
-            Warnings warning = new Warnings("W001", "Late Payment", "Active", "D001", "2024-10-10");
+            Warnings warning = new Warnings(null, null, null, null, null);
 
             // Simulate warning deletion
-            Warnings.deleteWarning(warning);
+            Warnings.deleteWarning(warning.getWarningId());
 
             // Assume further functionality to remove the warning from a real system
             // (No real deletion as this is just a console message, so no assert needed)
