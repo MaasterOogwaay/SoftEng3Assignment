@@ -1,73 +1,62 @@
 package invoicePackage;
 
-import customerPackage.Customer;
-import exceptionHandlerPackage.ExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import customerPackage.Customer;
+import exceptionHandlerPackage.ExceptionHandler;
 
 public class InvoiceTest {
+
     private Invoice invoice;
     private Customer customer;
 
     @BeforeEach
-    void setUp() {
-        try {
-            customer = new Customer("John Doe", "123 Main St", "1234567890");
-        } catch (ExceptionHandler e) {
-            e.printStackTrace();
-        }
-        invoice = new Invoice(100.0, customer, "2024-11-08");
+    public void setUp() throws ExceptionHandler {
+        customer = new Customer("Casemiro", "Manchester Place", "0161-2345");
+        invoice = new Invoice(1, 100.0, customer, "2024-11-21");
     }
 
     @Test
-    void testCreateInvoice_Success() {
-        assertNotNull(invoice);
-        assertEquals(100.0, invoice.getAmount());
-        assertEquals(customer, invoice.getCustomer());
-        assertEquals("2024-11-08", invoice.getBillingDate());
+    public void testInvoiceCreation() throws ExceptionHandler {
+        // Test initial creation values
+        assertEquals(100.0, invoice.getAmount(), 0.001, "Amount should match initial value");
+        assertEquals(customer, invoice.getCustomer(), "Customer details should match initial value");
+        assertEquals("2024-11-21", invoice.getBillingDate(), "Billing date should match initial value");
     }
 
     @Test
-    void testCreateInvoice_InvalidAmount() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Invoice(-50.0, customer, "2024-11-08");
-        }, "Invoice amount must be greater than zero.");
+    public void testSetInvoiceAmount() throws ExceptionHandler {
+        // Test setting a valid amount
+        invoice.setAmount(150.0);
+        assertEquals(150.0, invoice.getAmount(), 0.001, "Amount should update correctly");
+
+        // Test setting an invalid amount
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+            invoice.setAmount(-50.0);
+        });
+        assertEquals("Invoice amount must be greater than zero.", thrown.getMessage());
     }
 
     @Test
-    void testCreateInvoice_InvalidCustomer() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Invoice(100.0, null, "2024-11-08");
-        }, "Customer details cannot be null.");
+    public void testSetCustomerDetails() throws ExceptionHandler {
+        // Test setting valid customer details
+        Customer newCustomer = new Customer("Lisandro Martinez", "Defender Lane", "0161-6789");
+        invoice.setCustomer(newCustomer);
+        assertEquals(newCustomer, invoice.getCustomer(), "Customer details should update correctly");
+
+        // Test setting invalid customer details
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+            invoice.setCustomer(null);
+        });
+        assertEquals("Customer details cannot be null.", thrown.getMessage());
     }
 
     @Test
-    void testCreateInvoice_InvalidBillingDate() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Invoice(100.0, customer, "");
-        }, "Billing date cannot be null or empty.");
-    }
-
-    @Test
-    void testUpdateInvoice_Success() {
-        try {
-            Customer newCustomer = new Customer("Jane Doe", "456 Another St", "0987654321");
-            invoice.updateInvoice(150.0, newCustomer, "2024-12-01");
-            assertEquals(150.0, invoice.getAmount());
-            assertEquals(newCustomer, invoice.getCustomer());
-            assertEquals("2024-12-01", invoice.getBillingDate());
-        } catch (ExceptionHandler e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testDeleteInvoice() {
-        Invoice.deleteInvoice(invoice.getInvoiceId());
-        assertThrows(IllegalArgumentException.class, () -> {
-            Invoice.getInvoiceById(invoice.getInvoiceId());
-        }, "Invoice with ID " + invoice.getInvoiceId() + " not found.");
+    public void testSetBillingDate() throws ExceptionHandler {
+        // Test setting billing date
+        String newBillingDate = "2024-12-01";
+        invoice.setBillingDate(newBillingDate);
+        assertEquals(newBillingDate, invoice.getBillingDate(), "Billing date should update correctly");
     }
 }

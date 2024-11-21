@@ -9,8 +9,8 @@ public class Invoice {
     private Customer customer;
     private String billingDate;
 
-    public Invoice(int id, double amount, Customer customer, String billingDate) throws ExceptionHandler {
-        this.id = id;
+    // Constructor without id (for creating a new invoice)
+    public Invoice(double amount, Customer customer, String billingDate) throws ExceptionHandler {
         validateAmount(amount);
         validateCustomer(customer);
         validateBillingDate(billingDate);
@@ -19,8 +19,18 @@ public class Invoice {
         this.billingDate = billingDate;
     }
 
+    // Constructor with id (for retrieving an existing invoice)
+    public Invoice(int id, double amount, Customer customer, String billingDate) throws ExceptionHandler {
+        this(amount, customer, billingDate);
+        this.id = id;  // Set the id after validation
+    }
+
     public void setId(int invoiceId) {
-        id = invoiceId;
+        this.id = invoiceId;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setAmount(double amount) throws ExceptionHandler {
@@ -28,26 +38,22 @@ public class Invoice {
         this.amount = amount;
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
     public void setCustomer(Customer customer) throws ExceptionHandler {
         validateCustomer(customer);
         this.customer = customer;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
     public void setBillingDate(String billingDate) throws ExceptionHandler {
         validateBillingDate(billingDate);
         this.billingDate = billingDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 
     public String getBillingDate() {
@@ -73,4 +79,3 @@ public class Invoice {
         }
     }
 }
-a

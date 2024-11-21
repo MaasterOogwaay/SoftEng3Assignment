@@ -1,95 +1,84 @@
 package ordersPackage;
 
-import customerPackage.Customer;
-import exceptionHandlerPackage.ExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import customerPackage.Customer;
+import exceptionHandlerPackage.ExceptionHandler;
+import java.util.Date;
 
 public class OrderDetailsTest {
+
     private Order order;
     private Customer customer;
 
     @BeforeEach
-    void setUp() {
-        Order.clearAllOrders();
-        try {
-            customer = new Customer("John Doe", "123 Main St", "1234567890");
-        } catch (ExceptionHandler e) {
-            e.printStackTrace();
-        }
-        order = new Order(50.0, "Newspaper", customer);
+    public void setUp() throws ExceptionHandler {
+        customer = new Customer("Bruno Fernandes", "Old Trafford Ave", "0161-8765");
+        order = new Order(50.0, "Daily Subscription", customer);
     }
 
     @Test
-    void testCreateOrder_Success() {
-        assertNotNull(order);
-        assertEquals(50.0, order.getOrderPrice());
-        assertEquals("Newspaper", order.getOrderType());
-        assertEquals(customer, order.getCustomerDetails());
-        assertEquals(-1, order.getInvoiceId());
+    public void testOrderCreation() throws ExceptionHandler {
+        // Test initial creation values
+        assertEquals(50.0, order.getOrderPrice(), 0.001, "Price should match initial value");
+        assertEquals("Daily Subscription", order.getOrderType(), "Order type should match initial value");
+        assertEquals(customer, order.getCustomerDetails(), "Customer details should match initial value");
+        assertNotNull(order.getOrderDate(), "Order date should be automatically set");
     }
 
     @Test
-    void testCreateOrder_InvalidPrice() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Order(-10.0, "Magazine", customer);
-        }, "Order price must be greater than zero.");
+    public void testSetOrderPrice() throws ExceptionHandler {
+        // Test setting a valid price
+        order.setOrderPrice(75.0);
+        assertEquals(75.0, order.getOrderPrice(), 0.001, "Price should update correctly");
+
+        // Test setting an invalid price
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+            order.setOrderPrice(-10.0);
+        });
+        assertEquals("Order price must be greater than zero.", thrown.getMessage());
     }
 
     @Test
-    void testCreateOrder_InvalidOrderType() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Order(20.0, "", customer);
-        }, "Order type cannot be null or empty.");
+    public void testSetOrderType() throws ExceptionHandler {
+        // Test setting a valid type
+        order.setType("Weekly Subscription");
+        assertEquals("Weekly Subscription", order.getOrderType(), "Order type should update correctly");
+
+        // Test setting an invalid type
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+            order.setType("");
+        });
+        assertEquals("Order type cannot be null or empty.", thrown.getMessage());
     }
 
     @Test
-    void testCreateOrder_InvalidCustomerDetails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Order(20.0, "Magazine", null);
-        }, "Customer details cannot be null.");
+    public void testSetCustomerDetails() throws ExceptionHandler {
+        // Test setting valid customer details
+        Customer newCustomer = new Customer("Marcus Rashford", "Carrington Rd", "0161-5432");
+        order.setCustomerDetails(newCustomer);
+        assertEquals(newCustomer, order.getCustomerDetails(), "Customer details should update correctly");
+
+        // Test setting invalid customer details
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+            order.setCustomerDetails(null);
+        });
+        assertEquals("Customer details cannot be null.", thrown.getMessage());
     }
 
     @Test
-    void testGetOrder_Success() {
-        Order retrievedOrder = Order.getOrderById(order.getOrderId());
-        assertEquals(order, retrievedOrder);
+    public void testSetOrderId() {
+        // Test setting an order ID
+        order.setId(101);
+        assertEquals(101, order.getId(), "Order ID should be set correctly");
     }
 
     @Test
-    void testGetOrder_NotFound() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Order.getOrderById("nonexistent-id");
-        }, "Order with ID nonexistent-id not found.");
-    }
-
-    @Test
-    void testUpdateOrder_Success() {
-        try {
-            Customer newCustomer = new Customer("Jane Doe", "456 Another St", "0987654321");
-            Order.updateOrder(order.getOrderId(), 75.0, "Magazine", newCustomer);
-            Order updatedOrder = Order.getOrderById(order.getOrderId());
-            assertEquals(75.0, updatedOrder.getOrderPrice());
-            assertEquals("Magazine", updatedOrder.getOrderType());
-            assertEquals(newCustomer, updatedOrder.getCustomerDetails());
-        } catch (ExceptionHandler e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testDeleteOrder_Success() {
-        Order.deleteOrder(order.getOrderId());
-        assertThrows(IllegalArgumentException.class, () -> {
-            Order.getOrderById(order.getOrderId());
-        }, "Order with ID " + order.getOrderId() + " not found.");
-    }
-
-    @Test
-    void testGetAllOrders() {
-        Order secondOrder = new Order(30.0, "Magazine", customer);
-        assertEquals(2, Order.getAllOrders().size());
+    public void testSetOrderDate() {
+        // Test setting order date
+        Date newDate = new Date();
+        order.setDate(newDate);
+        assertEquals(newDate, order.getOrderDate(), "Order date should be set correctly");
     }
 }

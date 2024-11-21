@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Date;
 
 import customerPackage.Customer;
 import deliveryPersonPackage.DeliveryPerson;
+import invoicePackage.Invoice;
 import publicationPackage.Publication;
 import warningsPackage.Warnings;
 import newsAgentPackage.NewsAgent;
+import ordersPackage.Order;
 
 import java.sql.ResultSet;
 
@@ -21,7 +24,7 @@ public class MySQLAccess {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	final private String host ="localhost:3306";//"localhost:3307"
+	final private String host ="localhost:3306";//"localhost:3306"
 	final private String user = "root";
 	final private String password = "admin";
 	
@@ -295,12 +298,14 @@ public class MySQLAccess {
         boolean insertSuccessful = true;
 
         try {
-            preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.orders VALUES (default, ?, ?, ?, ?)");
-            preparedStatement.setDouble(1, o.getOrderPrice());
-            preparedStatement.setString(2, o.getOrderType());
-            preparedStatement.setString(3, o.getCustomerDetails().getName());
-            preparedStatement.setString(4, o.getOrderDate().toString());
-            preparedStatement.executeUpdate();
+        	preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.orders (price, type, customer_name, customer_address, order_date) VALUES (?, ?, ?, ?, ?)");
+        	preparedStatement.setDouble(1, o.getOrderPrice());
+        	preparedStatement.setString(2, o.getOrderType());
+        	preparedStatement.setString(3, o.getCustomerDetails().getName());
+        	preparedStatement.setString(4, o.getCustomerDetails().getAddress());
+        	preparedStatement.setDate(5, new java.sql.Date(o.getOrderDate().getTime()));
+        	preparedStatement.executeUpdate();
+
         } catch (Exception e) {
             insertSuccessful = false;
             e.printStackTrace();
@@ -325,7 +330,10 @@ public class MySQLAccess {
                 String customerName = resultSet.getString("customer_name");
                 String customerAddress = resultSet.getString("customer_address");
                 String customerPhone = resultSet.getString("customer_phone");
-                Date orderDate = resultSet.getDate("order_date");
+
+                // Convert java.sql.Date to java.util.Date
+                Date sqlDate = resultSet.getDate("order_date");
+                java.util.Date orderDate = new java.util.Date(sqlDate.getTime());
 
                 Customer customer = new Customer(customerName, customerAddress, customerPhone);
                 order = new Order(price, type, customer);
@@ -339,6 +347,7 @@ public class MySQLAccess {
 
         return order;
     }
+
 
     // Read - Retrieve All Orders
     public ResultSet retrieveAllOrders() {
@@ -487,7 +496,7 @@ public class MySQLAccess {
 
         return deleteSuccessful;
     }
-}
+
 	//////////////////////////////Warnings/DeliveryPerson Zone////////////////////////////////////////////
 
 	public boolean insertDeliveryPersonDetails(DeliveryPerson d) {

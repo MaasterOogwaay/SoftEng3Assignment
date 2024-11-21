@@ -12,18 +12,21 @@ public class Order {
     private Date date;
 
     public Order(double price, String type, Customer details) throws ExceptionHandler {
-        this.id = id;
         validatePrice(price);
         validateType(type);
         validateCustomerDetails(details);
         this.price = price;
         this.type = type;
         this.details = details;
-        this.date = date;
+        this.date = new Date();
     }
 
     public void setId(int orderId) {
         id = orderId;
+    }
+
+    public int getId() {  
+        return id;
     }
 
     public void setOrderPrice(double orderPrice) throws ExceptionHandler {
@@ -41,10 +44,6 @@ public class Order {
         details = customerDetails;
     }
 
-    public int getOrderById(int orderId) {
-        return id;
-    }
-
     public double getOrderPrice() {
         return price;
     }
@@ -59,6 +58,10 @@ public class Order {
 
     public Date getOrderDate() {
         return date;
+    }
+
+    public void setDate(Date orderDate) {
+        this.date = orderDate;
     }
 
     // Validation methods
@@ -80,3 +83,4 @@ public class Order {
         }
     }
 }
+
