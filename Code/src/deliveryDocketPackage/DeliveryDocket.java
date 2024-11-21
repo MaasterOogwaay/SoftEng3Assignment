@@ -102,7 +102,7 @@ public class DeliveryDocket {
             System.out.println(" - " + publication.getName());
         }
         System.out.println("Customer Orders:");
-        for (Orders order : orders) {
+        for (Order order : orders) {
             System.out.println("Customer: " + order.getCustomerDetails() + " ordered " + order.getOrderDetails());
         }
 	}
