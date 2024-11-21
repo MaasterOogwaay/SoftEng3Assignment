@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 
 import customerPackage.Customer;
+import deliveryDocketPackage.DeliveryDocket;
 import deliveryPersonPackage.DeliveryPerson;
 
 import java.sql.Date;
@@ -687,6 +689,75 @@ public class MySQLAccess {
 		return insertSuccessful;
 
 	}
+	
+    // Method to insert delivery docket into the database
+    public boolean insertDeliveryDocket(DeliveryDocket docket) {
+    	boolean insertSuccessfull = true;
+        try {
+        	preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.delivery_docket (deliveryDate, deliveryArea, deliveryPerson, publicationIds, customer) VALUES (?, ?, ?, ?, ?)");
+        	preparedStatement.setString(1, docket.getDeliveryDate());
+        	preparedStatement.setString(2, docket.getDeliveryArea());
+        	preparedStatement.setString(3, docket.getDeliveryPerson());
+            preparedStatement.setString(4, docket.getPublicationIds());
+            preparedStatement.setString(5, docket.getCustomer());
+            preparedStatement.executeUpdate();
+            
+        } catch (Exception e) {
+        	insertSuccessfull = false;
+            System.out.println("Error creating Delivery Docket: " + e.getMessage());
+        }
+        return insertSuccessfull;
+    }
+
+    // Method to read all the dockets from the database
+    public ResultSet retrieveAllDeliveryDockets() {
+        try {
+            statement = connect.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM newsagentApp.delivery_docket");
+        } catch (Exception e) {
+            System.out.println("Database error: " + e.getMessage());
+            return resultSet = null;
+        }
+        return resultSet;
+    }
+
+    // Method to update delivery docket by id
+    public boolean updateDeliveryDocketById(int docketId, String newDeliveryDate, String newDeliveryArea, String newDeliveryPerson, String newPublicationIds, String newCustomer) {
+    	boolean insertSuccessfull = true;
+    	try {
+        	preparedStatement = connect.prepareStatement("UPDATE newsagentApp.delivery_docket SET deliveryDate = ?, deliveryArea = ?, deliveryPerson = ?, publicationIds = ?, customer = ? WHERE docketId = ?");
+        	preparedStatement.setString(1, newDeliveryDate);
+        	preparedStatement.setString(2, newDeliveryArea);
+        	preparedStatement.setString(3, newDeliveryPerson);
+            preparedStatement.setString(4, newPublicationIds); 
+            preparedStatement.setString(5, newCustomer);
+            preparedStatement.setInt(6, docketId);
+            preparedStatement.executeUpdate();
+           
+        } catch (Exception e) {
+        	insertSuccessfull = false;
+            System.out.println("Error updating Delivery Docket: " + e.getMessage());
+        }
+    	return insertSuccessfull;
+    }
+
+    // Method to delete a delivery docket by ID
+    public boolean deleteDeliveryDocketById(int docketId) {
+    	boolean deleteSuccessfull = true;
+        try {
+        	if (docketId == -99) {
+        		preparedStatement = connect.prepareStatement("DELETE * FROM newsagentApp.delivery_docket");	
+        	} else {
+        		preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.delivery_docket WHERE docketId = " + docketId);
+        	}
+        		
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error deleting Delivery Docket: " + e.getMessage());
+            deleteSuccessfull = false;
+        }
+        return deleteSuccessfull;
+    }
 
 }
 

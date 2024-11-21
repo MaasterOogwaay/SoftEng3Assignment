@@ -2,109 +2,73 @@ package deliveryDocketPackage;
 
 import java.util.List;
 
-import customerPackage.Customer;
-import deliveryAreaPackage.DeliveryArea;
-import deliveryPersonPackage.DeliveryPerson;
-import ordersPackage.Order;
-import publicationPackage.Publication;
-
 public class DeliveryDocket {
-	
-	private int docketId;
-	private DeliveryArea deliveryArea;
-	private DeliveryPerson deliveryPerson;
-	private List<Publication> publications;
-	private List<Order> orders;
-	private List<Customer> customer;
-	private String deliveryDate;
-	
-	public DeliveryDocket(int docketId, DeliveryArea deliveryArea, DeliveryPerson deliveryPerson,
-			List<Publication> publications, List<Order> orders, List<Customer> customers, String deliveryDate) {
-		super();
-		this.docketId = docketId;
-		this.deliveryArea = deliveryArea;
-		this.deliveryPerson = deliveryPerson;
-		this.publications = publications;
-		this.orders = orders;
-		this.customer = customers;
-		this.deliveryDate = deliveryDate;
-	}
-	
-	public int getDocketId() {
-		return docketId;
-	}
 
-	public void setDocketId(int docketId) {
-		this.docketId = docketId;
-	}
+    private int docketId;
+    private String deliveryDate;
+    private String deliveryArea;
+    private String deliveryPerson;
+    private String publicationIds;
+    private String customer;
 
-	public DeliveryArea getDeliveryArea() {
-		return deliveryArea;
-	}
+    // Constructor
+    public DeliveryDocket(String deliveryDate, String deliveryArea, String deliveryPerson, String publicationIds, String customer) {
+        docketId = 0;
+        this.deliveryDate = deliveryDate;
+        this.deliveryArea = deliveryArea;
+        this.deliveryPerson = deliveryPerson;
+        this.publicationIds = publicationIds;
+        this.customer = customer;
+    }
 
-	public void setDeliveryArea(DeliveryArea deliveryArea) {
-		this.deliveryArea = deliveryArea;
-	}
+    // Getters and setters
+    public int getDocketId() {
+        return docketId;
+    }
 
-	public DeliveryPerson getDeliveryPerson() {
-		return deliveryPerson;
-	}
+    public void setDocketId(int docketId) {
+        this.docketId = docketId;
+    }
 
-	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
-		this.deliveryPerson = deliveryPerson;
-	}
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
 
-	public List<Publication> getPublications() {
-		return publications;
-	}
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
 
-	public void setPublications(List<Publication> publications) {
-		this.publications = publications;
-	}
+    public String getDeliveryArea() {
+        return deliveryArea;
+    }
 
-	public List<Order> getOrders() {
-		return orders;
-	}
+    public void setDeliveryArea(String deliveryArea) {
+        this.deliveryArea = deliveryArea;
+    }
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+    public String getDeliveryPerson() {
+        return deliveryPerson;
+    }
 
-	public List<Customer> getCustomer() {
-		return customer;
-	}
+    public void setDeliveryPerson(String deliveryPerson) {
+        this.deliveryPerson = deliveryPerson;
+    }
 
-	public void setCustomer(List<Customer> customer) {
-		this.customer = customer;
-	}
+    public String getPublicationIds() {
+        return publicationIds;
+    }
 
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
+    public void setPublicationIds(String publicationIds) {
+        this.publicationIds = publicationIds;
+    }
 
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
+    public String getCustomer() {
+        return customer;
+    }
 
-	public static void generateDocket() {}
-	
-	public static void updateDocket() {}
-	
-	public static void deleteDocket() {}
-	
-	public static void printDocket() {
-        System.out.println("Docket ID: " + docketId);
-        System.out.println("Delivery Area: " + deliveryArea.getAreaName());
-        System.out.println("Delivery Person: " + deliveryPerson.getName());
-        System.out.println("Delivery Date: " + deliveryDate);
-        System.out.println("Publications:");
-        for (Publication publication : publications) {
-            System.out.println(" - " + publication.getName());
-        }
-        System.out.println("Customer Orders:");
-        for (Order order : orders) {
-            System.out.println("Customer: " + order.getCustomerDetails() + " ordered " + order.getOrderDetails());
-        }
-	}
-
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
 }
+
+

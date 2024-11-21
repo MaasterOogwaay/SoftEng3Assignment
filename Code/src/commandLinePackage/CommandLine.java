@@ -2,10 +2,13 @@ package commandLinePackage;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
+import deliveryDocketPackage.DeliveryDocket;
 import deliveryPersonPackage.DeliveryPerson;
 import exceptionHandlerPackage.ExceptionHandler;
 import invoicePackage.Invoice;
@@ -459,18 +462,124 @@ public class CommandLine {
 						String docketChoice = keyboard.nextLine(); // Take user input
 
 						switch (docketChoice) {
-						case "1":
-							System.out.println("Delivery Docket Created (Placeholder).");
-							break;
-						case "2":
-							System.out.println("Displaying Today's Docket (Placeholder).");
-							break;
-						case "3":
-							System.out.println("Delivery Docket Updated (Placeholder).");
-							break;
-						case "4":
-							System.out.println("Delivery Docket Deleted (Placeholder).");
-							break;
+						case "1": // Create Delivery Docket
+						    System.out.println("Enter Delivery Date (YYYY-MM-DD):");
+						    String deliveryDate = keyboard.nextLine();
+
+						    System.out.println("Enter Delivery Area:");
+						    String deliveryArea = keyboard.nextLine();
+
+						    System.out.println("Enter Delivery Person:");
+						    String deliveryPerson = keyboard.nextLine();
+
+						    System.out.println("Enter Publications:");
+						    String publications = keyboard.nextLine();
+						    
+						    System.out.println("Enter customer:");
+						    String customerName = keyboard.nextLine();
+						    
+						    try {
+						    	DeliveryDocket docket = new DeliveryDocket(deliveryDate, deliveryArea, deliveryPerson, publications, customerName);
+						    	
+						    	MySQLAccess dbAccess = new MySQLAccess();
+						    	boolean success = dbAccess.insertDeliveryDocket(docket);
+						    	if (success) {
+						    		System.out.println("Docket created successfully");
+						    	} else {
+						    		System.out.println("Failed to create docket");
+						    	}
+						    } catch (Exception e) {
+						    	System.out.println("Error: " + e.getMessage());
+						    }
+						    
+						    break;
+
+						case "2": // View All Delivery Dockets
+						    System.out.println("Retrieving all delivery dockets...");
+
+						    try {
+						        MySQLAccess dbAccess = new MySQLAccess();
+						        ResultSet resultSet = dbAccess.retrieveAllDeliveryDockets();
+
+						        if (resultSet != null) {
+						            System.out.println("---------------------------------------------------------------------------------------------------");
+						            System.out.printf("%10s %20s %20s %20s %30s%n", "ID", "Date", "Area", "Person", "Publications", "Customer");
+						            System.out.println("---------------------------------------------------------------------------------------------------");
+
+						            while (resultSet.next()) {
+						                int id = resultSet.getInt("id");
+						                String date = resultSet.getString("deliveryDate");
+						                String area = resultSet.getString("deliveryArea");
+						                String person = resultSet.getString("deliveryPerson");
+						                String pubs = resultSet.getString("publicationIds");
+						                String cust = resultSet.getString("customer");
+
+						                System.out.printf("%10d %20s %20s %20s %30s%n", id, date, area, person, pubs, cust);
+						            }
+						            System.out.println("---------------------------------------------------------------------------------------------------");
+						        } else {
+						            System.out.println("No delivery dockets found.");
+						        }
+						    } catch (Exception e) {
+						        System.out.println("Error retrieving delivery dockets: " + e.getMessage());
+						    }
+						    break;
+
+						case "3": // Update Docket by ID
+						    System.out.println("Enter the ID of the Delivery Docket you wish to update:");
+						    int docketId = Integer.parseInt(keyboard.nextLine());
+
+						    System.out.println("Enter new Delivery Date:");
+						    String newDeliveryDate = keyboard.nextLine();
+						    
+						    System.out.println("Enter new Delivery Area:");
+						    String newDeliveryArea = keyboard.nextLine();
+
+						    System.out.println("Enter new Delivery Person:");
+						    String newDeliveryPerson = keyboard.nextLine();
+
+						    System.out.println("Enter new Publications:");
+						    String newPublications = keyboard.nextLine();
+
+						    System.out.println("Enter new Customer Name (leave blank to keep current):");
+						    String newCustomer = keyboard.nextLine();
+
+						    try {
+						        MySQLAccess dbAccess = new MySQLAccess();
+						        boolean success = dbAccess.updateDeliveryDocketById(docketId, newDeliveryDate, newDeliveryArea, newDeliveryPerson, newPublications, newCustomer);
+
+						        if (success) {
+						            System.out.println("Delivery Docket updated successfully.");
+						        } else {
+						            System.out.println("No Delivery Docket found with ID " + docketId + ".");
+						        }
+						    } catch (Exception e) {
+						        System.out.println("Error updating Delivery Docket: " + e.getMessage());
+						    }
+						    break;
+
+						case "4": // Delete Docket by ID
+						    System.out.println("Enter the ID of the Delivery Docket you wish to delete:");
+						    int deleteDocketId = Integer.parseInt(keyboard.nextLine());
+
+						    try {
+						        MySQLAccess dbAccess = new MySQLAccess();
+						        boolean success = dbAccess.deleteDeliveryDocketById(deleteDocketId);
+
+						        if (success) {
+						        	if (deleteDocketId == -99) {
+						        		System.out.println("All Delivery Dockets deleted successfully.");
+						        	} else {
+						        		System.out.println("Delivery Docket deleted successfully.");
+						        	}
+						        } else {
+						            System.out.println("No Delivery Docket found with ID " + deleteDocketId + ".");
+						        }
+						    } catch (Exception e) {
+						        System.out.println("Error deleting Delivery Docket: " + e.getMessage());
+						    }
+						    break;
+
 						case "99":
 							docketMenuOpen = false; // Return to Main Menu
 							break;
