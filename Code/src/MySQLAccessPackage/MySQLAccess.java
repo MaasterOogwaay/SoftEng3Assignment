@@ -15,6 +15,7 @@ import newsAgentPackage.NewsAgent;
 import ordersPackage.Order;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class MySQLAccess {
@@ -37,8 +38,8 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//Setup the connection with the DB
-			//connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
-			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
+			connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
+//			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
 			throw e;
@@ -291,7 +292,10 @@ public class MySQLAccess {
 		
 		return deleteSucessfull;
 		
+		
+		
 	}
+<<<<<<< Updated upstream
 //////////////////////////////Orders/Invoices Zone////////////////////////////////////////////
 	// Create - Insert Order Details
     public boolean insertOrderDetails(Order o) {
@@ -499,161 +503,333 @@ public class MySQLAccess {
 
 	//////////////////////////////Warnings/DeliveryPerson Zone////////////////////////////////////////////
 
-	public boolean insertDeliveryPersonDetails(DeliveryPerson d) {
-		boolean insertSuccessful = true;
+//	public class DeliveryWarningHandler {
+//		private Connection connect;
+//		private PreparedStatement preparedStatement;
+//		private Statement statement;
+//		private ResultSet resultSet;
+//
+//		// Insert DeliveryPerson Details
+//		
+//		
+//		
+//		
+//
+//		
+//		
+//		public boolean insertDeliveryPersonDetails(DeliveryPerson deliveryPerson) {
+//
+//			boolean insertSuccessful = true;
+//			try {
+//				preparedStatement = connect.prepareStatement(
+//						"INSERT INTO newsagentApp.delivery_person (id, name, contactInfo, assignedRoute) VALUES (?, ?, ?,?)");
+//				preparedStatement.setString(1, deliveryPerson.getId());
+//
+//				preparedStatement.setString(2, deliveryPerson.getName());
+//				preparedStatement.setString(3, deliveryPerson.getContactInfo());
+//				preparedStatement.setString(4, deliveryPerson.getAssignedRoute());
+//				preparedStatement.executeUpdate();
+//			} catch (Exception e) {
+//				insertSuccessful = false;
+//				e.printStackTrace();
+//				System.out.print(e.getMessage());
+//			}
+//			return insertSuccessful;
+//
+//		}}
+//
+//	
+//
+//
+//		public ResultSet retrieveAllDeliveryPersons() {
+//		    try {
+//		        statement = connect.createStatement();
+//		        resultSet = statement.executeQuery("SELECT * FROM newsagentApp.delivery_person");
+//		    } catch (Exception e) {
+//		    	e.printStackTrace();
+//		    }
+//		    return resultSet;
+//		}
+//		
+//
+//	
+//		// Update DeliveryPerson Details by ID
+//		public boolean updateDeliveryPersonDetailsById(String id, String newName, String newContactInfo, String newAssignedRoute) {
+//			boolean updateSuccessful = true;
+//			try {
+//				preparedStatement = connect.prepareStatement(
+//						"UPDATE newsagentApp.delivery_person SET name = ?, contactInfo = ?, assignedRoute = ? WHERE id = ?");
+//				preparedStatement.setString(1, newName);
+//				preparedStatement.setString(2, newContactInfo);
+//				preparedStatement.setString(3, newAssignedRoute);
+//				preparedStatement.setString(4, id);
+//				preparedStatement.executeUpdate();
+//			} catch (Exception e) {
+//				updateSuccessful = false;
+//				e.printStackTrace();
+//				System.out.print(e.getMessage());
+//			}
+//			return updateSuccessful;
+//		}
+//
+//		
+//		// Delete DeliveryPerson by ID or all if -99
+//		public boolean deleteDeliveryPersonById(int personId) {
+//			boolean deleteSuccessful = true;
+//			try {
+//				preparedStatement = personId == -99
+//						? connect.prepareStatement("DELETE FROM newsagentApp.delivery_person")
+//						: connect.prepareStatement("DELETE FROM newsagentApp.delivery_person WHERE id = ?");
+//				if (personId != -99) preparedStatement.setInt(1, personId);
+//				preparedStatement.executeUpdate();
+//			} catch (Exception e) {
+//				deleteSuccessful = false;
+//				e.printStackTrace();
+//				System.out.print(e.getMessage());
+//			}
+//			return deleteSuccessful;
+//		}
+//		
+//		
+//		
+//		
+//		
+//		
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		// Insert Warning Details
+//	// Insert Warning Details
+////		public boolean insertWarningDetails(Warnings w) {
+////		    boolean insertSuccessful = true;
+////		    try {
+////		        // Fix: Ensure query has 5 placeholders for 5 parameters
+////		        preparedStatement = connect.prepareStatement(
+////		            "INSERT INTO newsagentapp.warning (warning_Id, warning_reason, warning_status, delivery_person_id, date_issued) VALUES (?, ?, ?, ?, ?)"
+////		        );
+////		        // Set the 5 parameters correctly
+////		        preparedStatement.setString(1, w.getWarningId());
+////		        preparedStatement.setString(2, w.getWarningReason());
+////		        preparedStatement.setString(3, w.getWarningStatus());
+////		        preparedStatement.setString(4, w.getDeliveryPersonId());
+////		        preparedStatement.setString(5, w.getDateIssued()); // Treat dateIssued as a String
+////		        
+////		        preparedStatement.executeUpdate();
+////		    } catch (Exception e) {
+////		        insertSuccessful = false;
+////		        e.printStackTrace();
+////		    }
+////		    return insertSuccessful;
+////		}
+//
+////
+////		// Retrieve All Warnings
+////		public ResultSet retrieveAllWarnings() {
+////		    try {
+////		        statement = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+////		        resultSet = statement.executeQuery("SELECT * FROM newsagentApp.warning");
+////		    } catch (Exception e) {
+////		        e.printStackTrace();
+////		    }
+////		    return resultSet;
+////		}
+////
+//
+//
+//		// Update Warning Details by ID
+////		public boolean updateWarningDetailsById(String warningId, String newReason, String newStatus, String newDeliveryPersonId, String newDateIssued) {
+////		    boolean updateSuccessful = true;
+////		    try {
+////		        preparedStatement = connect.prepareStatement(
+////		            "UPDATE newsagentApp.warning SET warning_reason = ?, warning_status = ?, delivery_person_id = ?, date_issued = ? WHERE warning_id = ?");
+////		        preparedStatement.setString(1, warningId);
+////		        preparedStatement.setString(2, newReason);
+////		        preparedStatement.setString(3, newStatus);
+////		        preparedStatement.setString(4, newDeliveryPersonId); // Treat dateIssued as a String
+////		        preparedStatement.setString(5, newDateIssued);
+////		        preparedStatement.executeUpdate();
+////		    } catch (Exception e) {
+////		        updateSuccessful = false;
+////		        e.printStackTrace();
+////		    }
+////		    return updateSuccessful;
+////		}
+//
+//		// Delete Warning by ID or all if -99
+////		public boolean deleteWarningById(String warningId) {
+////		    boolean deleteSuccessful = true;
+////		    try {
+////		        if ("-99".equals(warningId)) {
+////		            // Special case: Delete all warnings
+////		            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning");
+////		        } else {
+////		            // Delete a specific warning
+////		            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning WHERE warning_id = ?");
+////		            preparedStatement.setString(1, warningId);
+////		        }
+////		        preparedStatement.executeUpdate();
+////		    } catch (Exception e) {
+////		        deleteSuccessful = false;
+////		        e.printStackTrace();
+////		    }
+////		    return deleteSuccessful;
+////		}
+//
+//
+//	
+//	
+//	
+//
+//	public boolean updateWarningDetailsById(String warningId, String newReason, String newStatus,
+//	        String newDeliveryPersonId, String newDateIssued) {
+//
+//	    boolean updateSuccessful = true;
+//	    try {
+//	        // Correct the parameter order to match the query
+//	        preparedStatement = connect.prepareStatement(
+//	            "UPDATE newsagentApp.warning SET warning_reason = ?, warning_status = ?, delivery_person_id = ?, date_issued = ? WHERE warning_id = ?");
+//
+//	        // Set the parameters in the correct order
+//	        preparedStatement.setString(1, newReason);            // warning_reason
+//	        preparedStatement.setString(2, newStatus);            // warning_status
+//	        preparedStatement.setString(3, newDeliveryPersonId);  // delivery_person_id
+//	        preparedStatement.setString(4, newDateIssued);        // date_issued
+//	        preparedStatement.setString(5, warningId);            // warning_id (WHERE clause)
+//
+//	        // Execute update
+//	        int rowsAffected = preparedStatement.executeUpdate();
+//	        if (rowsAffected == 0) {
+//	            updateSuccessful = false; // No rows were updated
+//	        }
+//	    } catch (Exception e) {
+//	        updateSuccessful = false;
+//	        e.printStackTrace();
+//	    }
+//	    return updateSuccessful;
+//	}
+//
+//
+//	public ResultSet retrieveAllWarnings() {
+//		 {
+//			    try {
+//			        statement = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//			        resultSet = statement.executeQuery("SELECT * FROM newsagentApp.warning");
+//			    } catch (Exception e) {
+//			        e.printStackTrace();
+//			    }
+//			    return resultSet;
+//			}
+//		// TODO Auto-generated method stub
+//	}
+//
+//	public boolean insertWarningDetails(Warnings warning) {
+//		 {
+//			    boolean insertSuccessful = true;
+//			    try {
+//			        // Fix: Ensure query has 5 placeholders for 5 parameters
+//			        preparedStatement = connect.prepareStatement(
+//			            "INSERT INTO newsagentapp.warning (warning_Id, warning_reason, warning_status, delivery_person_id, date_issued) VALUES (?, ?, ?, ?, ?)"
+//			        );
+//			        // Set the 5 parameters correctly
+//			        preparedStatement.setString(1, warning.getWarningId());
+//			        preparedStatement.setString(2, warning.getWarningReason());
+//			        preparedStatement.setString(3, warning.getWarningStatus());
+//			        preparedStatement.setString(4, warning.getDeliveryPersonId());
+//			        preparedStatement.setString(5, warning.getDateIssued()); // Treat dateIssued as a String
+//			        
+//			        preparedStatement.executeUpdate();
+//			    } catch (Exception e) {
+//			        insertSuccessful = false;
+//			        e.printStackTrace();
+//			    }
+//			    return insertSuccessful;
+//			}
+//		// TODO Auto-generated method stub
+//	}
+//
+//	public boolean deleteWarningById(String id) {
+//		{
+//		    boolean deleteSuccessful = true;
+//		    try {
+//		        if ("-99".equals(id)) {
+//		            // Special case: Delete all warnings
+//		            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning");
+//		        } else {
+//		            // Delete a specific warning
+//		            preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning WHERE warning_id = ?");
+//		            preparedStatement.setString(1, id);
+//		        }
+//		        preparedStatement.executeUpdate();
+//		    } catch (Exception e) {
+//		        deleteSuccessful = false;
+//		        e.printStackTrace();
+//		    }
+//		    return deleteSuccessful;
+//		}
+//		// TODO Auto-generated method stub
+//	}
+//
+//	public boolean insertDeliveryPersonDetails(DeliveryPerson deliveryPerson)  {
+//
+//		boolean insertSuccessful = true;
+//		try {
+//			preparedStatement = connect.prepareStatement(
+//					"INSERT INTO newsagentApp.delivery_person (id, name, contactInfo, assignedRoute) VALUES (?, ?, ?,?)");
+//			preparedStatement.setString(1, deliveryPerson.getId());
+//
+//			preparedStatement.setString(2, deliveryPerson.getName());
+//			preparedStatement.setString(3, deliveryPerson.getContactInfo());
+//			preparedStatement.setString(4, deliveryPerson.getAssignedRoute());
+//			preparedStatement.executeUpdate();
+//		} catch (Exception e) {
+//			insertSuccessful = false;
+//			e.printStackTrace();
+//			System.out.print(e.getMessage());
+//		}
+//		return insertSuccessful;
+//
+//	}
+//
 
-		try {
-			preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.delivery_person VALUES (default, ?, ?, ?)");
-			preparedStatement.setString(1, d.getName());
-			preparedStatement.setString(2, d.getContactInfo());
-			preparedStatement.setString(3, d.getAssignedRoute());
-			preparedStatement.executeUpdate();
 
-		} catch (Exception e) {
-			insertSuccessful = false;
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-		}
 
-		return insertSuccessful;
 	}
-
-	// Insert Warning details
-	public boolean insertWarningDetails(Warnings w) {
-		boolean insertSuccessful = true;
-
-		try {
-			preparedStatement = connect.prepareStatement("INSERT INTO newsagentApp.warning VALUES (default, ?, ?, ?)");
-			preparedStatement.setInt(1, w.getCustomerId());
-			preparedStatement.setString(2, w.getReason());
-			preparedStatement.setTimestamp(3, w.getDateIssued());
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			insertSuccessful = false;
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-		}
-
-		return insertSuccessful;
-	}
-
-	// READ Operations
-
-	// Retrieve all DeliveryPersons
-	public ResultSet retrieveAllDeliveryPersons() {
-		try {
-			statement = connect.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM newsagentApp.delivery_person");
-
-		} catch (Exception e) {
-			resultSet = null;
-			e.printStackTrace();
-		}
-		return resultSet;
-	}
-
-	// Retrieve all Warnings
-	public ResultSet retrieveAllWarnings() {
-		try {
-			statement = connect.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM newsagentApp.warning");
-
-		} catch (Exception e) {
-			resultSet = null;
-			e.printStackTrace();
-		}
-		return resultSet;
-	}
-
-	// UPDATE Operations
-
-	// Update DeliveryPerson details by ID
-	public boolean updateDeliveryPersonDetailsById(int personId, String newName, String newPhone, String newRoute) {
-		boolean updateSuccessful = true;
-
-		try {
-			preparedStatement = connect.prepareStatement("UPDATE newsagentApp.delivery_person SET name = ?, phone = ?, route = ? WHERE id = ?");
-			preparedStatement.setString(1, newName);
-			preparedStatement.setString(2, newPhone);
-			preparedStatement.setString(3, newRoute);
-			preparedStatement.setInt(4, personId);
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			updateSuccessful = false;
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-		}
-
-		return updateSuccessful;
-	}
-
-	// Update Warning details by ID
-	public boolean updateWarningDetailsById(int warningId, int newCustomerId, String newReason, Timestamp newDateIssued) {
-		boolean updateSuccessful = true;
-
-		try {
-			preparedStatement = connect.prepareStatement("UPDATE newsagentApp.warning SET customer_id = ?, reason = ?, date_issued = ? WHERE id = ?");
-			preparedStatement.setInt(1, newCustomerId);
-			preparedStatement.setString(2, newReason);
-			preparedStatement.setTimestamp(3, newDateIssued);
-			preparedStatement.setInt(4, warningId);
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			updateSuccessful = false;
-			e.printStackTrace();
-			System.out.print(e.getMessage());
-		}
-
-		return updateSuccessful;
-	}
-
-	// DELETE Operations
-
-	// Delete DeliveryPerson by ID
-	public boolean deleteDeliveryPersonById(int personId) {
-		boolean deleteSuccessful = true;
-
-		try {
-			if (personId == -99) {
-				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.delivery_person");
-			} else {
-				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.delivery_person WHERE id = ?");
-				preparedStatement.setInt(1, personId);
-			}
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			deleteSuccessful = false;
-			e.printStackTrace();
-		}
-
-		return deleteSuccessful;
-	}
-
-	// Delete Warning by ID
-	public boolean deleteWarningById(int warningId) {
-		boolean deleteSuccessful = true;
-
-		try {
-			if (warningId == -99) {
-				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning");
-			} else {
-				preparedStatement = connect.prepareStatement("DELETE FROM newsagentApp.warning WHERE id = ?");
-				preparedStatement.setInt(1, warningId);
-			}
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			deleteSuccessful = false;
-			e.printStackTrace();
-		}
-
-		return deleteSuccessful;
-	}
-
-}// end Class
 
 

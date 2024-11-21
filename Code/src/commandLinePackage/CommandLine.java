@@ -1,16 +1,21 @@
 package commandLinePackage;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
 import exceptionHandlerPackage.ExceptionHandler;
 import invoicePackage.Invoice;
+import deliveryPersonPackage.DeliveryPerson;
 import newsAgentPackage.NewsAgent;
 import ordersPackage.Order;
 import publicationPackage.Publication;
+import warningsPackage.Warnings;
 
 public class CommandLine {
 
@@ -43,6 +48,8 @@ public class CommandLine {
 		System.out.println("3. Delivery Docket");
 		System.out.println("4. Orders");
 		System.out.println("5. Publications");
+		System.out.println("6. Delivery Person");
+		System.out.println("7. Warnings");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -167,12 +174,48 @@ public class CommandLine {
 			System.out.printf("%30s", phone);
 			System.out.println();
 		} // end while
+		
+		
+		
+		
+
+		
+
 		System.out.println(
 				"--------------------------------------------------------------------------------------------------------------------------------------");
 
 		return true;
 
 	}
+	
+	
+	private static void listDeliveryPersonFunctionalityAvailable() {
+        System.out.println(" ");
+        System.out.println("=============================================");
+        System.out.println("Please choose ONE of the following options:");
+        System.out.println("1. Create Delivery Person");
+        System.out.println("2. Read Delivery Persons");
+        System.out.println("3. Update Delivery Person by ID");
+        System.out.println("4. Delete Delivery Person by ID");
+        System.out.println("99. Return to Menu");
+        System.out.println("=============================================");
+        System.out.println(" ");
+    }
+	private static void listWarningsFunctionalityAvailable() {
+        System.out.println(" ");
+        System.out.println("=============================================");
+        System.out.println("Please choose ONE of the following options:");
+        System.out.println("1. Create Warning");
+        System.out.println("2. Read Warnings");
+        System.out.println("3. Update Warning");
+        System.out.println("4. Delete Warning");
+        System.out.println("99. Return to Menu");
+        System.out.println("=============================================");
+        System.out.println(" ");
+    }
+
+	
+
 
 	// Main method with logic to switch between menus
 	public static void main(String[] args) {
@@ -850,7 +893,8 @@ public class CommandLine {
 						}
 					}
 					break;
-
+					
+		
 				case "99":
 					keepAppOpen = false;
 					System.out.println("Closing the Application");
@@ -869,5 +913,36 @@ public class CommandLine {
 		} // end try-catch
 
 	} // end main
+
+	
+	    
+	public static void printTable(ResultSet rs, String tableName) {
+	    try {
+	        ResultSetMetaData metaData = rs.getMetaData();
+	        int columnCount = metaData.getColumnCount();
+
+	        // Print Table Header
+	        System.out.println("Table: " + tableName);
+	        for (int i = 1; i <= columnCount; i++) {
+	            System.out.printf("%-20s", metaData.getColumnLabel(i));
+	        }
+	        System.out.println();
+
+	        // Print Rows
+	        while (rs.next()) {
+	            for (int i = 1; i <= columnCount; i++) {
+	                System.out.printf("%-20s", rs.getString(i));
+	            }
+	            System.out.println();
+	        }
+	        System.out.println("=".repeat(80));
+	    } catch (Exception e) {
+	        System.out.println("Error printing table: " + e.getMessage());
+	    }
+	}
+
+
+	
+
 
 }
