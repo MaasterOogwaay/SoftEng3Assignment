@@ -4,15 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.Date;
 
 import customerPackage.Customer;
-import deliveryPersonPackage.DeliveryPerson;
+
+import java.sql.Date;
+
 import invoicePackage.Invoice;
-import publicationPackage.Publication;
-import warningsPackage.Warnings;
 import newsAgentPackage.NewsAgent;
+import warningsPackage.Warnings;
 import ordersPackage.Order;
+import publicationPackage.Publication;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,8 +39,8 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//Setup the connection with the DB
-			connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
-//			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
+			//connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
+			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
 			throw e;
@@ -295,7 +296,7 @@ public class MySQLAccess {
 		
 		
 	}
-<<<<<<< Updated upstream
+
 //////////////////////////////Orders/Invoices Zone////////////////////////////////////////////
 	// Create - Insert Order Details
     public boolean insertOrderDetails(Order o) {

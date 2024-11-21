@@ -5,7 +5,7 @@ import java.util.List;
 import customerPackage.Customer;
 import deliveryAreaPackage.DeliveryArea;
 import deliveryPersonPackage.DeliveryPerson;
-import ordersPackage.Orders;
+import ordersPackage.Order;
 import publicationPackage.Publication;
 
 public class DeliveryDocket {
@@ -14,12 +14,12 @@ public class DeliveryDocket {
 	private DeliveryArea deliveryArea;
 	private DeliveryPerson deliveryPerson;
 	private List<Publication> publications;
-	private List<Orders> orders;
+	private List<Order> orders;
 	private List<Customer> customer;
 	private String deliveryDate;
 	
 	public DeliveryDocket(int docketId, DeliveryArea deliveryArea, DeliveryPerson deliveryPerson,
-			List<Publication> publications, List<Orders> orders, List<Customer> customers, String deliveryDate) {
+			List<Publication> publications, List<Order> orders, List<Customer> customers, String deliveryDate) {
 		super();
 		this.docketId = docketId;
 		this.deliveryArea = deliveryArea;
@@ -62,11 +62,11 @@ public class DeliveryDocket {
 		this.publications = publications;
 	}
 
-	public List<Orders> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Orders> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 

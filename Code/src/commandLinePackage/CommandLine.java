@@ -1,21 +1,16 @@
 package commandLinePackage;
 
-import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
 import exceptionHandlerPackage.ExceptionHandler;
 import invoicePackage.Invoice;
-import deliveryPersonPackage.DeliveryPerson;
 import newsAgentPackage.NewsAgent;
 import ordersPackage.Order;
 import publicationPackage.Publication;
-import warningsPackage.Warnings;
 
 public class CommandLine {
 

@@ -2,9 +2,11 @@ package ordersPackage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import customerPackage.Customer;
 import exceptionHandlerPackage.ExceptionHandler;
+
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Date;
 
 public class OrderDetailsTest {
@@ -29,7 +31,7 @@ public class OrderDetailsTest {
 
     @Test
     public void testSetOrderPrice() throws ExceptionHandler {
-        // Test setting a valid price
+        // Test setting a valid price 
         order.setOrderPrice(75.0);
         assertEquals(75.0, order.getOrderPrice(), 0.001, "Price should update correctly");
 

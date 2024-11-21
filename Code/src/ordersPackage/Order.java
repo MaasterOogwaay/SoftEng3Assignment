@@ -1,7 +1,8 @@
 package ordersPackage;
 
-import customerPackage.Customer;
 import java.util.Date;
+
+import customerPackage.Customer;
 import exceptionHandlerPackage.ExceptionHandler;
 
 public class Order {
