@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import customerPackage.Customer;
+import deliveryAreaPackage.DeliveryArea;
 import deliveryDocketPackage.DeliveryDocket;
 import deliveryPersonPackage.DeliveryPerson;
 
@@ -42,8 +43,8 @@ public class MySQLAccess {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			//Setup the connection with the DB
-			//connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
-			connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
+			connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/?user=root");
+			//connect = DriverManager.getConnection("jdbc:mysql://" + host + "/newsagentapp?" + "user=" + user + "&password=" + password);
 		}
 		catch (Exception e) {
 			throw e;
@@ -175,7 +176,8 @@ public class MySQLAccess {
 		return deleteSucessfull;
 
 	}
-
+	
+	
 	public boolean deleteDocketById(int docketId) {
 
 		boolean deleteSucessfull = true;
@@ -543,6 +545,18 @@ public class MySQLAccess {
 		}
 		return resultSet;
 	}
+	
+	public boolean checkforDeliveryPersonId(String id) {
+		try {
+			preparedStatement = connect.prepareStatement("SELECT * FROM newsagentApp.delivery_person WHERE id = ?");
+			preparedStatement.setString(1, id);
+			statement.executeQuery("SELECT * FROM newsagentApp.delivery_person WHERE id = ?");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	// Update DeliveryPerson Details by ID
 	public boolean updateDeliveryPersonDetailsById(String id, String newName, String newContactInfo, String newAssignedRoute) {
@@ -758,6 +772,103 @@ public class MySQLAccess {
         }
         return deleteSuccessfull;
     }
+    
+    
+    
+    public boolean insertArea(DeliveryArea d) {
+
+		boolean insertSucessfull = true;
+
+		//Add Code here to call embedded SQL to insert Customer into DB
+
+		try {
+
+			//Create prepared statement to issue SQL query to the database
+			preparedStatement = connect.prepareStatement("insert into newsagentApp.areas values (default, ?, ?, ?)");
+			preparedStatement.setString(1, d.getName());
+			preparedStatement.setString(2, d.getDes());
+			preparedStatement.setString(3, d.getDriver_id());
+			preparedStatement.executeUpdate();
+
+
+		}
+		catch (Exception e) {
+			insertSucessfull = false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+
+		return insertSucessfull;
+
+	}// end insertCustomerDetailsAccount
+
+	public boolean updateAreaById(int areaId, String newName, String newDes, String newDriver) {
+
+		boolean insertSucessfull = true;
+
+		//Add Code here to call embedded SQL to update Customer
+
+		try {
+
+			//Create prepared statement to issue SQL query to the database
+			preparedStatement = connect.prepareStatement("update newsagentApp.areas SET name = ?, Description = ?, Driver_ID = ? WHERE id = ?");
+			preparedStatement.setString(1, newName);
+			preparedStatement.setString(2, newDes);
+			preparedStatement.setString(3, newDriver);
+			preparedStatement.setInt(4, areaId);
+			preparedStatement.executeUpdate();
+
+
+		}
+		catch (Exception e) {
+			insertSucessfull = false;
+		}
+
+		return insertSucessfull;
+
+	}// end updateareaById
+
+	public ResultSet retrieveAllAreas() {
+
+		//Add Code here to call embedded SQL to view Area Details
+
+		try {
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("Select * from newsagentApp.areas");
+
+		}
+		catch (Exception e) {
+			resultSet = null;
+		}
+		return resultSet;
+	}
+
+	public boolean deleteAreaById(int areaID) {
+
+		boolean deleteSucessfull = true;
+
+		//Add Code here to call embedded SQL to insert Customer into DB
+
+		try {
+
+			//Create prepared statement to issue SQL query to the database
+			if (areaID == -99)
+				//Delete all entries in Table
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.areas");
+			else
+				//Delete a particular Customer
+				preparedStatement = connect.prepareStatement("delete from newsagentApp.areas where id = " + areaID);
+			preparedStatement.executeUpdate();
+
+		}
+		catch (Exception e) {
+			deleteSucessfull = false;
+		}
+
+		return deleteSucessfull;
+
+	}
+	
 
 }
 

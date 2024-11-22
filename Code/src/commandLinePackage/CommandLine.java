@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import MySQLAccessPackage.MySQLAccess;
 import customerPackage.Customer;
+import deliveryAreaPackage.DeliveryArea;
 import deliveryDocketPackage.DeliveryDocket;
 import deliveryPersonPackage.DeliveryPerson;
 import exceptionHandlerPackage.ExceptionHandler;
@@ -68,6 +69,22 @@ public class CommandLine {
 		System.out.println("2. View ALL Customer Records");
 		System.out.println("3. Update Customer Record by ID");
 		System.out.println("4. Delete Customer Record by ID");
+		System.out.println("99. Close the NewsAgent Application");
+		System.out.println("=============================================");
+		System.out.println(" ");
+
+	}
+	private static void listAreaFunctionalityAvailable() {
+
+		// Present Area Functionality Options
+
+		System.out.println(" ");
+		System.out.println("=============================================");
+		System.out.println("Please choose ONE of the following options:");
+		System.out.println("1. Create Area");
+		System.out.println("2. View ALL Areas");
+		System.out.println("3. Update Area by ID");
+		System.out.println("4. Delete Area Record by ID");
 		System.out.println("99. Close the NewsAgent Application");
 		System.out.println("=============================================");
 		System.out.println(" ");
@@ -426,25 +443,121 @@ public class CommandLine {
 						}
 					}
 					break;
+				//////////////////////////////////////////nig
 
 				case "2": // Delivery Area Functionality
 					boolean areaMenuOpen = true;
+					//MySQLAccess dbAccess = new MySQLAccess();
 					while (areaMenuOpen) {
-						listDeliveryAreaFunctionalityAvailable(); // Show Delivery Area Submenu
+						MySQLAccess dbAccess = new MySQLAccess();
+						listAreaFunctionalityAvailable(); // Show Area Submenu
 						String areaChoice = keyboard.nextLine(); // Take user input
 
 						switch (areaChoice) {
-						case "1":
-							System.out.println("Delivery Area Created (Placeholder).");
+						case "1": // Create Area 
+							System.out.println("Creating Area");
+							System.out.println("Please enter Area Name:");
+							String areaName = keyboard.nextLine();
+
+							System.out.println("Please enter Area description:");
+							String areaDes = keyboard.nextLine();
+
+							System.out.println("Please enter Area Driver Listed below ID (If none listed create driver):");
+							try {
+								ResultSet rs = dbAccess.retrieveAllAreas();
+								printTable(rs, "Delivery Persons");
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
+							String areaDriver = keyboard.nextLine();
+							//checkforDeliveryPersonId(areaDriver);//getBackTo
+
+							try {
+								// Create Area object
+								DeliveryArea newArea = new DeliveryArea(areaName,areaDes,areaDriver);
+
+								// Create MySQLAccess object and insert the customer
+								
+								boolean success = dbAccess.insertArea(newArea);
+
+								if (success) {
+									System.out.println("Area created successfully.");
+								} else {
+									System.out.println("Failed to create area.");
+								}
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
+
 							break;
-						case "2":
-							System.out.println("Displaying Delivery Areas (Placeholder).");
+						case "2": // Read All Area Details
+							try {
+								ResultSet rs = dbAccess.retrieveAllAreas();
+								printTable(rs, "Areas");
+							} catch (Exception e) {
+								System.out.println("Error: " + e.getMessage());
+							}
 							break;
-						case "3":
-							System.out.println("Delivery Area Updated (Placeholder).");
+						case "3": // Update Areas by ID
+							System.out.println("Please enter the ID of the area you wish to update:");
+
+							try {
+								int areaId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an
+								// integer
+
+								// Prompt the user for new details
+								System.out.println("Enter new area name:");
+								String newName = keyboard.nextLine();
+								System.out.println("Enter new description:");
+								String newDes = keyboard.nextLine();
+								System.out.println("Enter new Delivery Driver:");
+								String newDriver = keyboard.nextLine();
+
+								// Create MySQLAccess object and update the customer
+								
+								boolean success = dbAccess.updateAreaById(areaId, newName, newDes,
+										newDriver);
+
+								if (success) {
+									System.out.println("Area with ID " + areaId + " was updated successfully.");
+								} else {
+									System.out.println("No customer found with ID " + areaId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error updating customer record: " + e.getMessage());
+							}
 							break;
-						case "4":
-							System.out.println("Delivery Area Deleted (Placeholder).");
+						case "4": // Delete area By ID
+							System.out.println(
+									"Please enter the ID of the area you wish to delete (-99 to delete all):");
+							int areaId;
+
+							try {
+								areaId = Integer.parseInt(keyboard.nextLine()); // Convert user input to an integer
+
+								// Create MySQLAccess object and delete the area
+								
+								boolean success = dbAccess.deleteAreaById(areaId);
+
+								if (success) {
+									if (areaId == -99) {
+										System.out.println("All area records were deleted successfully.");
+									} else {
+										System.out.println(
+												"Area with ID " + areaId + " was deleted successfully.");
+									}
+								} else {
+									System.out.println("No area found with ID " + areaId + ".");
+								}
+
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid input. Please enter a numeric ID.");
+							} catch (Exception e) {
+								System.out.println("Error deleting area record: " + e.getMessage());
+							}
 							break;
 						case "99":
 							areaMenuOpen = false; // Return to Main Menu
@@ -454,7 +567,7 @@ public class CommandLine {
 						}
 					}
 					break;
-
+				//////////////////////////////////////////nig
 				case "3": // Delivery Docket Functionality
 					boolean docketMenuOpen = true;
 					while (docketMenuOpen) {
@@ -855,7 +968,7 @@ public class CommandLine {
 				case "6": // Publication Functionality
 					boolean publicationMenuOpen = true;
 					while (publicationMenuOpen) {
-						listPublicationFunctionalityAvailable(); // Show Customer Submenu
+						listPublicationFunctionalityAvailable(); // Show Publication Submenu
 						String publicationChoice = keyboard.nextLine(); // Take user input
 
 						switch (publicationChoice) {
@@ -993,13 +1106,16 @@ public class CommandLine {
 							}
 							break;
 						case "99":
-							orderMenuOpen = false; // Return to Main Menu
+							publicationMenuOpen = false; // Return to Main Menu
 							break;
 						default:
 							System.out.println("No valid option selected.");
 						}
 					}
 					break;
+					
+					
+					
 
 				case "7": // delivery person
 					boolean deliveryPersonMenuOpen = true;
