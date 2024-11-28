@@ -50,7 +50,7 @@ public class NewsAgent {
 	}
 	
 	public static void validateUserName(String userName) throws ExceptionHandler {
-		if (userName.isBlank() || userName.isEmpty())
+		if (userName.isBlank() || userName.isEmpty() || userName == null)
 			throw new ExceptionHandler("Username NOT specified");
 		else if (userName.length() < 2)
 			throw new ExceptionHandler("Username does not meet minimum length requirements");
