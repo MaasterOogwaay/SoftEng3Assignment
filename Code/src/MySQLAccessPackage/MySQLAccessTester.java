@@ -72,7 +72,7 @@ class MySQLAccessTester {
     public void testInsertDeliveryPerson() {
         DeliveryPerson delPerson = new DeliveryPerson("5", "Dylan", "012345678", "12");
         boolean success = dbAccess.insertDeliveryPersonDetails(delPerson);
-
+        System.out.println(success);
         assertTrue(success, "Delivery person should be created successfully.");
     }
     

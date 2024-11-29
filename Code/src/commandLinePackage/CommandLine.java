@@ -22,7 +22,11 @@ public class CommandLine {
 
 	private static boolean isLoggedIn = false;
 
-	private static void listSignUpLogInFunctionalityAvailable() {
+	public static boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	static void listSignUpLogInFunctionalityAvailable() {
 
 		// Present Newsagent with Sign Up or Log In Options
 
@@ -37,7 +41,7 @@ public class CommandLine {
 
 	}
 
-	private static void listNewsAgentFunctionalityAvailable() {
+	static void listNewsAgentFunctionalityAvailable() {
 
 		// Present Newsagent with Functionality Options
 
@@ -58,7 +62,7 @@ public class CommandLine {
 
 	}
 
-	private static void listCustomerFunctionalityAvailable() {
+	static void listCustomerFunctionalityAvailable() {
 
 		// Present Customer with Functionality Options
 
@@ -74,7 +78,7 @@ public class CommandLine {
 		System.out.println(" ");
 
 	}
-	private static void listAreaFunctionalityAvailable() {
+	static void listAreaFunctionalityAvailable() {
 
 		// Present Area Functionality Options
 
@@ -91,7 +95,7 @@ public class CommandLine {
 
 	}
 
-	private static void listDeliveryDocketFunctionalityAvailable() {
+	static void listDeliveryDocketFunctionalityAvailable() {
 
 		// Present Customer with Functionality Options
 
@@ -108,7 +112,7 @@ public class CommandLine {
 
 	}
 
-	private static void listDeliveryAreaFunctionalityAvailable() {
+	static void listDeliveryAreaFunctionalityAvailable() {
 
 		// Present Customer with Functionality Options
 
@@ -125,7 +129,7 @@ public class CommandLine {
 
 	}
 
-	private static void listOrdersFunctionalityAvailable() {
+	static void listOrdersFunctionalityAvailable() {
 
 		// Present Customer with Functionality Options
 
@@ -142,7 +146,7 @@ public class CommandLine {
 
 	}
 
-	private static void listInvoiceFunctionalityAvailable() {
+	static void listInvoiceFunctionalityAvailable() {
 		System.out.println("\nInvoice Functionality:");
 		System.out.println("1. Create Invoice");
 		System.out.println("2. Display Invoice");
@@ -153,7 +157,7 @@ public class CommandLine {
 	}
 
 
-	private static void listPublicationFunctionalityAvailable() {
+	static void listPublicationFunctionalityAvailable() {
 
 		// Present Customer with Functionality Options
 
@@ -207,7 +211,7 @@ public class CommandLine {
 	}
 
 
-	private static void listDeliveryPersonFunctionalityAvailable() {
+	static void listDeliveryPersonFunctionalityAvailable() {
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
@@ -219,7 +223,7 @@ public class CommandLine {
 		System.out.println("=============================================");
 		System.out.println(" ");
 	}
-	private static void listWarningsFunctionalityAvailable() {
+	 static void listWarningsFunctionalityAvailable() {
 		System.out.println(" ");
 		System.out.println("=============================================");
 		System.out.println("Please choose ONE of the following options:");
