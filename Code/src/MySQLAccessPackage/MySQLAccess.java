@@ -779,7 +779,7 @@ public class MySQLAccess {
 
 		boolean insertSucessfull = true;
 
-		//Add Code here to call embedded SQL to insert Customer into DB
+		//Add Code here to call embedded SQL to insert area into DB
 
 		try {
 

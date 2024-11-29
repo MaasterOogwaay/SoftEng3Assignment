@@ -1,5 +1,6 @@
 package MySQLAccessPackage;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import deliveryDocketPackage.DeliveryDocket;
 import deliveryPersonPackage.DeliveryPerson;
 import exceptionHandlerPackage.ExceptionHandler;
 import invoicePackage.Invoice;
+import junit.framework.Assert;
 import newsAgentPackage.NewsAgent;
 import ordersPackage.Order;
 import publicationPackage.Publication;
@@ -50,13 +52,26 @@ class MySQLAccessTester {
     }
     
     // Test insert delivery area
-//    @Test
-//    public void testInsertDeliveryArea() throws ExceptionHandler {
-//        DeliveryArea delArea = new DeliveryArea("Dylan", "12 Bothar Bui", "012345678");
-//        boolean success = dbAccess.insertDeliveryArea(delArea);
-//
-//        assertTrue(success, "Delivery area should be created successfully.");
-//    }
+    @Test
+    public void testInsertDeliveryArea() throws ExceptionHandler {
+        DeliveryArea delArea = new DeliveryArea("Dylans house", "12 Bothar Bui", "1");
+        boolean success = dbAccess.insertArea(delArea);
+
+        assertTrue(success, "Delivery area should be created successfully.");
+        
+        
+        try {
+        	delArea = new DeliveryArea("Dylan", "a", "1");
+        	success = dbAccess.insertArea(delArea);
+        }
+        catch (Exception ex) {
+            Assert.fail();
+         }
+        
+       
+        
+        
+    }
     
     // Test insert Delivery Docket
     @Test
@@ -120,5 +135,7 @@ class MySQLAccessTester {
 
         assertTrue(success, "warning should be created successfully.");
     }
+    
+    
 
 }

@@ -18,9 +18,7 @@ public class DeliveryArea {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public String getName() {
 		return name;
@@ -51,16 +49,10 @@ public class DeliveryArea {
 		id = 0;
 		
 		// Validate Input
-		try {
-			
-			validateName(areaName);
-			validateDes(areaDes);
-			validateID(areaDriver_id);
-			
-		}
-		catch (ExceptionHandler e) {
-			throw e;
-		}
+		validateName(areaName);
+		validateDes(areaDes);
+		
+		
 		
 		// Set Attributes
 		name = areaName;
@@ -96,22 +88,7 @@ public class DeliveryArea {
 		
 	}
 	
-	public static void validateID(String Driver_id) throws ExceptionHandler {
-		
-		//Agree Formating Rules on "Customer PhoneNumber"
-		//E.G. Name String must be a minimum of 7 characters and a maximum of 15 characters
-		
-		
-		//DeliveryWarningHandler.checkforDeliveryPersonId(Driver_id);
-//		return false;
-//		if (custPhone.isBlank() || custPhone.isEmpty())
-//			throw new ExceptionHandler("Customer PhoneNumber NOT specified");
-//		else if (custPhone.length() < 7)
-//			throw new ExceptionHandler("Customer PhoneNumber does not meet minimum length requirements");
-//		else if (custPhone.length() > 15)
-//			throw new ExceptionHandler("Customer PhoneNumber does not exceeds maximum length requirements");
-//		
-	}
+	
 	
 
 }
