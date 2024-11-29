@@ -51,17 +51,11 @@ public Publication(String pubName, String pubPrice, String pubQuantity, String p
 		id = 0;
 		
 		// Validate Input
-		try {
-			
-			validateName(pubName);
-			validatePrice(pubPrice);
-			validateFrequency(pubFrequency);
-			validateQuantity(pubQuantity);
-			
-		}
-		catch (ExceptionHandler e) {
-			throw e;
-		}
+		validateName(pubName);
+		validatePrice(pubPrice);
+		validateFrequency(pubFrequency);
+		validateQuantity(pubQuantity);;
+		
 		
 		// Set Attributes
 		name = pubName;

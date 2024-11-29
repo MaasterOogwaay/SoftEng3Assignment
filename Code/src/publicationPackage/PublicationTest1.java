@@ -1,16 +1,39 @@
 package publicationPackage;
+import java.io.*;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import commandLinePackage.CommandLine;
 import deliveryPersonPackage.DeliveryPerson;
 import exceptionHandlerPackage.ExceptionHandler;
 
 class PublicationTest1 {
 
 	private Publication publicationObj;
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
+	@Before
+	public void setUpStreams() {
+		System.setOut(new PrintStream(outContent));
+		System.setErr(new PrintStream(errContent));
+	}
+
+	@After
+	public void restoreStreams() {
+		System.setOut(originalOut);
+		System.setErr(originalErr);
+	}
 
 	@BeforeEach
 	void setUp() throws ExceptionHandler {
@@ -36,6 +59,115 @@ class PublicationTest1 {
 
 		//assertEquals("Route 2", newDeliveryPerson.getAssignedRoute());
 	}
+	//Test setters
+	@Test
+	void SettersTest() throws ExceptionHandler {
+		Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+		newPublication.setFrequency("Weekly");
+		newPublication.setPrice("4");
+		newPublication.setQuantity("3");
+		newPublication.setName("The Weekly Journal");
+		assertEquals("The Weekly Journal", newPublication.getName());
+		assertEquals("3", newPublication.getQuantity());
+		assertEquals("Weekly", newPublication.getFrequency());
+		assertEquals("4", newPublication.getPrice());
+		
+	}
+	//test valid and invalid names validateName
+	@Test
+	void testvalidateName() throws ExceptionHandler {
+		Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+		//assertThrows(newPublication.validateName("");
+		//assertEquals(newPublication.validateName(""), ExceptionHandler.getMessage());
+		
+
+       // assertEquals("This is Custom exception message", exception.ge
+	}
+	//validate name
+	@Test
+	void test() throws ExceptionHandler {
+		Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+        	newPublication.validateName("");
+        });
+        assertEquals("Publication Name NOT specified", thrown.getMessage());
+        thrown = assertThrows(ExceptionHandler.class, () -> {
+        	newPublication.validateName(" ");
+        });
+        assertEquals("Publication Name NOT specified", thrown.getMessage());
+        thrown = assertThrows(ExceptionHandler.class, () -> {
+        	newPublication.validateName("a");
+        });
+        assertEquals("Publication Name does not meet minimum length requirements", thrown.getMessage());
+        thrown = assertThrows(ExceptionHandler.class, () -> {
+        	newPublication.validateName("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        });
+        assertEquals("Publication Name exceeds maximum length requirements", thrown.getMessage());
+        
+	}
+	
+	//validate Price
+		@Test
+		void testprice() throws ExceptionHandler {
+			Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+	        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+	        	newPublication.validatePrice("");
+	        });
+	        assertEquals("Publication Price NOT specified", thrown.getMessage());
+	        thrown = assertThrows(ExceptionHandler.class, () -> {
+	        	newPublication.validatePrice(" ");
+	        });
+	        assertEquals("Publication Price NOT specified", thrown.getMessage());
+	        thrown = assertThrows(ExceptionHandler.class, () -> {
+	        	newPublication.validatePrice("a");
+	        });
+	        assertEquals("Publication Price is not a number", thrown.getMessage());
+	        
+	        
+		}
+		//validate Quantity
+				@Test
+				void testquan() throws ExceptionHandler {
+					Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+			        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateQuantity("");
+			        });
+			        assertEquals("Publication Quantity NOT specified", thrown.getMessage());
+			        thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateQuantity(" ");
+			        });
+			        assertEquals("Publication Quantity NOT specified", thrown.getMessage());
+			        thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateQuantity("2.2");
+			        });
+			        assertEquals("Publication Quantity must be a natural number", thrown.getMessage());
+			        thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateQuantity("a");
+			        });
+			        assertEquals("Publication Quantity is not a number", thrown.getMessage());
+			        
+			        
+				}
+				//validate frequency
+				@Test
+				void testfreq() throws ExceptionHandler {
+					Publication newPublication = new Publication("The Daily Times", "1.5", "50", "Daily");
+			        ExceptionHandler thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateFrequency("");
+			        });
+			        assertEquals("Publication Frequency NOT specified", thrown.getMessage());
+			        thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateFrequency(" ");
+			        });
+			        assertEquals("Publication Frequency NOT specified", thrown.getMessage());
+			        thrown = assertThrows(ExceptionHandler.class, () -> {
+			        	newPublication.validateFrequency("2.2");
+			        });
+			        assertEquals("Publication Frequency Must be Daily, Weekly or Monthly", thrown.getMessage());
+			        
+			        
+				}
+					
 	// Test Case 2: update new Publication
 //	@Test
 //	void updatePublication() {
